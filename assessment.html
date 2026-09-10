@@ -1,162 +1,753 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Career Compass Assessment</title>  <style>
-    body {
+
+  <title>Career Compass — Assessment</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 30px 20px;
+      padding: 0;
+    }
+
+    body {
       font-family: Arial, sans-serif;
       background: #f5f7fb;
       color: #111827;
+      min-height: 100vh;
     }
 
-    .box {
-      max-width: 650px;
-      margin: 40px auto;
-      background: white;
-      padding: 35px;
-      border-radius: 20px;
+    .container {
+      width: 92%;
+      max-width: 720px;
+      margin: auto;
+      padding: 35px 0 60px;
+    }
+
+    .logo {
       text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .logo span {
+      color: #6366f1;
+    }
+
+    .progress-area {
+      margin-bottom: 30px;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 9px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      width: 8.33%;
+      background: #6366f1;
+      border-radius: 20px;
+      transition: width 0.3s ease;
+    }
+
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 32px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.07);
+    }
+
+    .question-number {
+      font-size: 14px;
+      font-weight: 600;
+      color: #6366f1;
+      margin-bottom: 12px;
     }
 
     h1 {
-      margin-bottom: 10px;
-    }
-
-    #question {
-      font-size: 22px;
-      font-weight: bold;
-      margin: 30px 0 20px;
+      font-size: 28px;
+      line-height: 1.25;
+      margin-bottom: 25px;
     }
 
     .option {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: 0.2s;
       background: white;
-      border: 2px solid #ddd;
-      border-radius: 12px;
-      text-align: left;
       font-size: 16px;
     }
 
-    .option:active {
-      background: #eeeeff;
+    .option:hover {
+      border-color: #a5b4fc;
+      background: #f8f8ff;
     }
 
-    #next {
+    .option.selected {
+      border-color: #6366f1;
+      background: #eef2ff;
+    }
+
+    .continue-btn {
       width: 100%;
-      padding: 15px;
-      margin-top: 20px;
-      border: 0;
-      border-radius: 12px;
+      border: none;
       background: #111827;
       color: white;
+      padding: 16px;
+      border-radius: 14px;
       font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.2s;
     }
-  </style></head><body><div class="box">  <h1>Career Compass 🧭</h1>  <p>Let's discover what career direction fits you.</p>  <div id="question"></div>  <div id="options"></div>  <button id="next" onclick="nextQuestion()">
-    Continue →
-  </button></div><script>
+
+    .continue-btn:hover {
+      background: #374151;
+    }
+
+    .continue-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .results {
+      display: none;
+    }
+
+    .results-badge {
+      display: inline-block;
+      background: #eef2ff;
+      color: #4f46e5;
+      padding: 8px 13px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .results h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .profile-card {
+      background: #111827;
+      color: white;
+      padding: 25px;
+      border-radius: 18px;
+      margin-bottom: 22px;
+    }
+
+    .profile-card h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .profile-card p {
+      color: #d1d5db;
+      line-height: 1.5;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin: 25px 0 14px;
+    }
+
+    .career {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      padding: 17px;
+      border-radius: 14px;
+      margin-bottom: 10px;
+    }
+
+    .career strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .career span {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .trait {
+      margin-bottom: 17px;
+    }
+
+    .trait-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .trait-bar {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .trait-fill {
+      height: 100%;
+      background: #6366f1;
+      border-radius: 20px;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 25px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding-top: 22px;
+      }
+
+      .card {
+        padding: 22px;
+        border-radius: 18px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .results h1 {
+        font-size: 28px;
+      }
+
+      .option {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="logo">
+      Career <span>Compass</span> 🧭
+    </div>
+
+    <!-- ASSESSMENT -->
+
+    <div id="assessment">
+
+      <div class="progress-area">
+        <div class="progress-text">
+          <span id="questionCount">Question 1 of 12</span>
+          <span id="percentage">8%</span>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
+        </div>
+      </div>
+
+      <div class="card">
+
+        <div class="question-number" id="questionNumber">
+          QUESTION 01
+        </div>
+
+        <h1 id="questionText"></h1>
+
+        <div id="options"></div>
+
+        <button
+          class="continue-btn"
+          id="continueBtn"
+          disabled
+          onclick="nextQuestion()">
+          Continue →
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- RESULTS -->
+
+    <div class="results" id="results">
+
+      <div class="card">
+
+        <div class="results-badge">
+          YOUR CAREER PROFILE
+        </div>
+
+        <h1 id="resultTitle"></h1>
+
+        <p class="subtitle" id="resultDescription"></p>
+
+        <div class="profile-card">
+          <h2 id="profileTitle"></h2>
+          <p id="profileText"></p>
+        </div>
+
+        <h2 class="section-title">
+          Your strongest traits
+        </h2>
+
+        <div id="traits"></div>
+
+        <h2 class="section-title">
+          Career directions to explore
+        </h2>
+
+        <div id="careers"></div>
+
+        <p class="note">
+          Your result is a starting point for exploration, not a fixed prediction of your future. 🧭
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+<script>
 
 const questions = [
+
   {
-    q: "What do you enjoy most?",
-    a: [
-      "Solving problems",
-      "Leading people",
-      "Creating things",
-      "Helping people"
+    question: "You suddenly get a free weekend. What sounds most satisfying?",
+    options: [
+      ["Building or figuring out something challenging", "Analytical"],
+      ["Organising something with friends", "Leadership"],
+      ["Making something creative", "Creative"],
+      ["Learning about how people think", "People"],
+      ["Trying a new business idea", "Entrepreneurial"],
+      ["Planning your goals and getting things organised", "Structured"]
     ]
   },
+
   {
-    q: "Which sounds most interesting?",
-    a: [
-      "Technology",
-      "Business",
-      "Design and media",
-      "Psychology and people"
+    question: "Your team is stuck on a difficult problem. What do you naturally do?",
+    options: [
+      ["Break the problem into smaller parts", "Analytical"],
+      ["Take charge and decide what everyone should do", "Leadership"],
+      ["Think of an unusual solution", "Creative"],
+      ["Ask everyone what they think", "People"],
+      ["Look for a completely new opportunity", "Entrepreneurial"],
+      ["Create a clear step-by-step plan", "Structured"]
     ]
   },
+
   {
-    q: "How do you approach difficult problems?",
-    a: [
-      "I analyze them carefully",
-      "I take charge",
-      "I find creative solutions",
-      "I ask others for perspectives"
+    question: "Imagine someone gives you ₹10 lakh to build something from scratch. What attracts you most?",
+    options: [
+      ["A technology or engineering product", "Analytical"],
+      ["A company with a team behind it", "Leadership"],
+      ["A visually impressive product or brand", "Creative"],
+      ["Something that improves people's lives", "People"],
+      ["A business designed to make money", "Entrepreneurial"],
+      ["A reliable system that solves an everyday problem", "Structured"]
     ]
   },
+
   {
-    q: "What motivates you?",
-    a: [
-      "Learning new things",
-      "Achieving big goals",
-      "Expressing myself",
-      "Making a difference"
+    question: "Which compliment would mean the most to you?",
+    options: [
+      ["You're really smart at solving problems.", "Analytical"],
+      ["You're someone people naturally follow.", "Leadership"],
+      ["You have a really creative mind.", "Creative"],
+      ["You understand people really well.", "People"],
+      ["You always see opportunities others miss.", "Entrepreneurial"],
+      ["You are extremely organised and dependable.", "Structured"]
     ]
   },
+
   {
-    q: "Which describes you best?",
-    a: [
-      "Analytical",
-      "Ambitious",
-      "Creative",
-      "Empathetic"
+    question: "You're given a completely unfamiliar task. Your first reaction is usually:",
+    options: [
+      ["Let's understand how it works.", "Analytical"],
+      ["Let's get people together and start.", "Leadership"],
+      ["Let's experiment and see what happens.", "Creative"],
+      ["Let's understand who this is actually helping.", "People"],
+      ["Could this turn into something bigger?", "Entrepreneurial"],
+      ["Let me figure out exactly what needs to be done.", "Structured"]
+    ]
+  },
+
+  {
+    question: "Which kind of achievement would make you most proud?",
+    options: [
+      ["Solving something that seemed impossible", "Analytical"],
+      ["Leading a team to a big result", "Leadership"],
+      ["Creating something people remember", "Creative"],
+      ["Helping someone make a major improvement in their life", "People"],
+      ["Turning an idea into a successful business", "Entrepreneurial"],
+      ["Building something reliable that works extremely well", "Structured"]
+    ]
+  },
+
+  {
+    question: "If you had to spend six hours doing one thing, which would bother you the least?",
+    options: [
+      ["Analysing information and finding patterns", "Analytical"],
+      ["Talking, organising and making decisions", "Leadership"],
+      ["Designing, writing or creating", "Creative"],
+      ["Talking with and helping different people", "People"],
+      ["Planning ideas and opportunities", "Entrepreneurial"],
+      ["Working through a clear system or process", "Structured"]
+    ]
+  },
+
+  {
+    question: "A friend brings you a complicated problem. What are you most likely to do?",
+    options: [
+      ["Analyse the situation logically", "Analytical"],
+      ["Tell them what I think they should do", "Leadership"],
+      ["Suggest an unconventional solution", "Creative"],
+      ["Listen carefully before giving advice", "People"],
+      ["Look for an opportunity hidden inside the problem", "Entrepreneurial"],
+      ["Help them make a practical action plan", "Structured"]
+    ]
+  },
+
+  {
+    question: "Which environment sounds most interesting?",
+    options: [
+      ["Technology, science or engineering", "Analytical"],
+      ["A fast-moving team where I can lead", "Leadership"],
+      ["Design, media or creative work", "Creative"],
+      ["Psychology, education or community", "People"],
+      ["Startups, business or innovation", "Entrepreneurial"],
+      ["Finance, operations or organised systems", "Structured"]
+    ]
+  },
+
+  {
+    question: "When you imagine your future work, what matters most?",
+    options: [
+      ["Being intellectually challenged", "Analytical"],
+      ["Having influence and responsibility", "Leadership"],
+      ["Having freedom to create", "Creative"],
+      ["Making a meaningful difference to people", "People"],
+      ["Building something of my own", "Entrepreneurial"],
+      ["Having stability and a clear path to grow", "Structured"]
+    ]
+  },
+
+  {
+    question: "You discover a new app that nobody around you knows about. What do you do?",
+    options: [
+      ["Explore how the technology works", "Analytical"],
+      ["Show it to people and get everyone interested", "Leadership"],
+      ["Think about how it could be redesigned", "Creative"],
+      ["Wonder how it could help people", "People"],
+      ["Think about whether it could become a business", "Entrepreneurial"],
+      ["Test its features and figure out the best way to use it", "Structured"]
+    ]
+  },
+
+  {
+    question: "Which sentence sounds most like you?",
+    options: [
+      ["I like understanding things deeply.", "Analytical"],
+      ["I like making things happen.", "Leadership"],
+      ["I like expressing ideas in original ways.", "Creative"],
+      ["I like understanding and supporting people.", "People"],
+      ["I like spotting opportunities and taking initiative.", "Entrepreneurial"],
+      ["I like turning chaos into a clear system.", "Structured"]
     ]
   }
+
 ];
 
-let current = 0;
+
+let currentQuestion = 0;
+let selectedTrait = null;
+
+let scores = {
+  Analytical: 0,
+  Leadership: 0,
+  Creative: 0,
+  People: 0,
+  Entrepreneurial: 0,
+  Structured: 0
+};
+
 
 function showQuestion() {
 
-  document.getElementById("question").textContent =
-    (current + 1) + ". " + questions[current].q;
+  const q = questions[currentQuestion];
 
-  const options = document.getElementById("options");
+  document.getElementById("questionNumber").textContent =
+    "QUESTION " + String(currentQuestion + 1).padStart(2, "0");
 
-  options.innerHTML = "";
+  document.getElementById("questionText").textContent =
+    q.question;
 
-  questions[current].a.forEach(function(answer) {
+  document.getElementById("questionCount").textContent =
+    "Question " + (currentQuestion + 1) + " of " + questions.length;
 
-    const button = document.createElement("button");
+  const percent =
+    Math.round(((currentQuestion + 1) / questions.length) * 100);
 
-    button.className = "option";
-    button.textContent = answer;
+  document.getElementById("percentage").textContent =
+    percent + "%";
 
-    button.onclick = function() {
+  document.getElementById("progress").style.width =
+    percent + "%";
 
-      document.querySelectorAll(".option").forEach(function(b) {
-        b.style.background = "white";
+  const optionsContainer =
+    document.getElementById("options");
+
+  optionsContainer.innerHTML = "";
+
+  selectedTrait = null;
+
+  document.getElementById("continueBtn").disabled = true;
+
+  q.options.forEach((option, index) => {
+
+    const div = document.createElement("div");
+
+    div.className = "option";
+
+    div.textContent = option[0];
+
+    div.onclick = function() {
+
+      document.querySelectorAll(".option").forEach(item => {
+        item.classList.remove("selected");
       });
 
-      button.style.background = "#eeeeff";
+      div.classList.add("selected");
+
+      selectedTrait = option[1];
+
+      document.getElementById("continueBtn").disabled = false;
+
     };
 
-    options.appendChild(button);
+    optionsContainer.appendChild(div);
 
   });
+
 }
+
 
 function nextQuestion() {
 
-  if (current < questions.length - 1) {
+  if (!selectedTrait) return;
 
-    current++;
+  scores[selectedTrait]++;
+
+  currentQuestion++;
+
+  if (currentQuestion < questions.length) {
+
     showQuestion();
 
   } else {
 
-    document.querySelector(".box").innerHTML =
-      "<h1>Assessment Complete 🎯</h1>" +
-      "<p>Your personalized career report will be generated here.</p>";
+    showResults();
 
   }
+
 }
+
+
+function showResults() {
+
+  document.getElementById("assessment").style.display = "none";
+
+  document.getElementById("results").style.display = "block";
+
+  const sortedTraits =
+    Object.entries(scores).sort((a, b) => b[1] - a[1]);
+
+  const topTrait = sortedTraits[0][0];
+
+  const secondTrait = sortedTraits[1][0];
+
+  const traitInfo = {
+
+    Analytical: {
+      title: "The Problem Solver",
+      description: "You appear to enjoy understanding complex problems, spotting patterns and finding logical solutions.",
+      careers: [
+        ["Software & AI", "Technology, programming, artificial intelligence and digital products."],
+        ["Engineering", "Designing systems, machines and solutions to real-world problems."],
+        ["Data & Research", "Finding patterns, analysing information and discovering insights."]
+      ]
+    },
+
+    Leadership: {
+      title: "The Leader",
+      description: "You seem comfortable taking responsibility, making decisions and bringing people together.",
+      careers: [
+        ["Business & Management", "Leading teams, organisations and business operations."],
+        ["Product Management", "Combining strategy, people and technology to build products."],
+        ["Team Leadership", "Roles where communication, responsibility and decision-making matter."]
+      ]
+    },
+
+    Creative: {
+      title: "The Creator",
+      description: "You appear to value originality, self-expression and the freedom to turn ideas into something real.",
+      careers: [
+        ["Design & Creative Technology", "UI/UX, product design, visual design and creative technology."],
+        ["Media & Content", "Video, storytelling, digital media and creative production."],
+        ["Brand & Marketing", "Creative strategy, advertising, branding and communication."]
+      ]
+    },
+
+    People: {
+      title: "The People Connector",
+      description: "You seem naturally interested in people, communication and making a positive difference.",
+      careers: [
+        ["Psychology & Human Behaviour", "Understanding people, behaviour and decision-making."],
+        ["Education & Coaching", "Teaching, mentoring and helping others develop."],
+        ["Communication & Public Relations", "Building relationships and communicating ideas effectively."]
+      ]
+    },
+
+    Entrepreneurial: {
+      title: "The Opportunity Seeker",
+      description: "You appear attracted to independence, opportunities, experimentation and building things from the ground up.",
+      careers: [
+        ["Entrepreneurship", "Creating and growing your own products, services or companies."],
+        ["Business & Innovation", "Finding opportunities and developing new ideas."],
+        ["Marketing & Growth", "Helping products reach people and grow."]
+      ]
+    },
+
+    Structured: {
+      title: "The Organiser",
+      description: "You seem to value clarity, reliability, planning and systems that work efficiently.",
+      careers: [
+        ["Finance & Business", "Working with money, planning, analysis and business decisions."],
+        ["Operations", "Making systems, processes and organisations run smoothly."],
+        ["Project Management", "Planning, coordinating and delivering complex projects."]
+      ]
+    }
+
+  };
+
+
+  const info = traitInfo[topTrait];
+
+  document.getElementById("resultTitle").textContent =
+    info.title;
+
+  document.getElementById("resultDescription").textContent =
+    info.description;
+
+  document.getElementById("profileTitle").textContent =
+    topTrait + " + " + secondTrait;
+
+  document.getElementById("profileText").textContent =
+    "Your strongest signal is " +
+    topTrait.toLowerCase() +
+    ", supported by " +
+    secondTrait.toLowerCase() +
+    ". This combination can point toward several different career directions rather than just one job.";
+
+  
+  // TRAITS
+
+  const traitsContainer =
+    document.getElementById("traits");
+
+  traitsContainer.innerHTML = "";
+
+  sortedTraits.forEach(([trait, score]) => {
+
+    const percentage =
+      Math.round((score / questions.length) * 100);
+
+    const div = document.createElement("div");
+
+    div.className = "trait";
+
+    div.innerHTML = `
+      <div class="trait-header">
+        <span>${trait}</span>
+        <strong>${percentage}%</strong>
+      </div>
+
+      <div class="trait-bar">
+        <div
+          class="trait-fill"
+          style="width:${percentage}%">
+        </div>
+      </div>
+    `;
+
+    traitsContainer.appendChild(div);
+
+  });
+
+
+  // CAREERS
+
+  const careersContainer =
+    document.getElementById("careers");
+
+  careersContainer.innerHTML = "";
+
+  info.careers.forEach(career => {
+
+    const div = document.createElement("div");
+
+    div.className = "career";
+
+    div.innerHTML = `
+      <strong>${career[0]}</strong>
+      <span>${career[1]}</span>
+    `;
+
+    careersContainer.appendChild(div);
+
+  });
+
+}
+
 
 showQuestion();
 
-</script></body>
+</script>
+
+</body>
 </html>
