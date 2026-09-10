@@ -1,767 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Career Compass — Assessment</title>
-
-  <style>
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #111827;
-      min-height: 100vh;
-    }
-
-    .container {
-      width: 92%;
-      max-width: 720px;
-      margin: auto;
-      padding: 30px 0 60px;
-    }
-
-    .logo {
-      text-align: center;
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 30px;
-    }
-
-    .logo span {
-      color: #6366f1;
-    }
-
-    /* PROGRESS */
-
-    .progress-area {
-      margin-bottom: 30px;
-    }
-
-    .progress-text {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      color: #6b7280;
-      margin-bottom: 9px;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: #e5e7eb;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .progress {
-      height: 100%;
-      width: 8.33%;
-      background: #6366f1;
-      border-radius: 20px;
-      transition: width .3s ease;
-    }
-
-    /* CARD */
-
-    .card {
-      background: white;
-      border-radius: 22px;
-      padding: 30px;
-      box-shadow: 0 10px 35px rgba(0,0,0,.07);
-    }
-
-    .question-number {
-      font-size: 14px;
-      font-weight: 700;
-      color: #6366f1;
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-size: 28px;
-      line-height: 1.3;
-      margin-bottom: 25px;
-    }
-
-    /* OPTIONS */
-
-    .option {
-      border: 2px solid #e5e7eb;
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 12px;
-      cursor: pointer;
-      transition: .2s;
-      background: white;
-      font-size: 16px;
-    }
-
-    .option:hover {
-      border-color: #a5b4fc;
-      background: #f8f8ff;
-    }
-
-    .option.selected {
-      border-color: #6366f1;
-      background: #eef2ff;
-    }
-
-    .continue-btn {
-      width: 100%;
-      border: none;
-      background: #111827;
-      color: white;
-      padding: 16px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .continue-btn:disabled {
-      opacity: .4;
-      cursor: not-allowed;
-    }
-
-    /* RESULTS */
-
-    .results {
-      display: none;
-    }
-
-    .badge {
-      display: inline-block;
-      background: #eef2ff;
-      color: #4f46e5;
-      padding: 8px 13px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 15px;
-    }
-
-    .results h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      color: #6b7280;
-      line-height: 1.6;
-      margin-bottom: 22px;
-    }
-
-    /* PROFILE */
-
-    .profile {
-      background: #111827;
-      color: white;
-      padding: 24px;
-      border-radius: 18px;
-      margin-bottom: 22px;
-    }
-
-    .profile-label {
-      font-size: 12px;
-      color: #a5b4fc;
-      font-weight: 700;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-    }
-
-    .profile h2 {
-      font-size: 23px;
-      margin-bottom: 8px;
-    }
-
-    .profile p {
-      color: #d1d5db;
-      line-height: 1.5;
-    }
-
-    /* INSIGHTS */
-
-    .section-title {
-      font-size: 20px;
-      margin: 26px 0 14px;
-    }
-
-    .insight {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      padding: 17px;
-      margin-bottom: 10px;
-    }
-
-    .insight strong {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .insight span {
-      color: #6b7280;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    /* LOCKED REPORT */
-
-    .locked {
-      position: relative;
-      overflow: hidden;
-      margin-top: 25px;
-      border-radius: 18px;
-      border: 1px solid #e5e7eb;
-      min-height: 430px;
-    }
-
-    .locked-content {
-      padding: 22px;
-      filter: blur(5px);
-      user-select: none;
-      opacity: .65;
-    }
-
-    .locked-content h3 {
-      margin-bottom: 15px;
-    }
-
-    .fake-section {
-      margin-bottom: 25px;
-    }
-
-    .fake-line {
-      height: 15px;
-      background: #d1d5db;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-
-    .long {
-      width: 90%;
-    }
-
-    .medium {
-      width: 65%;
-    }
-
-    .short {
-      width: 40%;
-    }
-
-    .lock-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,.84);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 25px;
-    }
-
-    .lock-box {
-      max-width: 420px;
-    }
-
-    .lock-icon {
-      font-size: 35px;
-      margin-bottom: 10px;
-    }
-
-    .lock-box h3 {
-      font-size: 21px;
-      margin-bottom: 8px;
-    }
-
-    .lock-box p {
-      color: #6b7280;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 17px;
-    }
-
-    .price {
-      font-size: 30px;
-      font-weight: 800;
-      margin-bottom: 14px;
-    }
-
-    .unlock-btn {
-      display: inline-block;
-      border: none;
-      background: #6366f1;
-      color: white;
-      padding: 15px 25px;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .unlock-btn:hover {
-      background: #4f46e5;
-    }
-
-    /* FEATURES */
-
-    .features {
-      margin-top: 22px;
-    }
-
-    .feature {
-      padding: 12px 0;
-      font-size: 15px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .feature:last-child {
-      border-bottom: none;
-    }
-
-    /* NOTE */
-
-    .note {
-      color: #6b7280;
-      font-size: 12px;
-      line-height: 1.5;
-      text-align: center;
-      margin-top: 22px;
-    }
-
-    /* FULL BLUEPRINT */
-
-    .blueprint {
-      display: none;
-      margin-top: 25px;
-    }
-
-    .blueprint-header {
-      background: #111827;
-      color: white;
-      padding: 25px;
-      border-radius: 18px;
-      margin-bottom: 20px;
-    }
-
-    .blueprint-header small {
-      color: #a5b4fc;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .blueprint-header h2 {
-      font-size: 26px;
-      margin: 8px 0;
-    }
-
-    .blueprint-header p {
-      color: #d1d5db;
-      line-height: 1.5;
-    }
-
-    .blueprint-card {
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 18px;
-      padding: 22px;
-      margin-bottom: 15px;
-    }
-
-    .blueprint-card h3 {
-      font-size: 19px;
-      margin-bottom: 12px;
-    }
-
-    .blueprint-card p {
-      color: #6b7280;
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    .career-item {
-      background: #f9fafb;
-      border-radius: 13px;
-      padding: 15px;
-      margin-bottom: 10px;
-      border: 1px solid #e5e7eb;
-    }
-
-    .career-item strong {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .career-item span {
-      color: #6b7280;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .skill {
-      display: inline-block;
-      background: #eef2ff;
-      color: #4f46e5;
-      padding: 8px 11px;
-      border-radius: 20px;
-      font-size: 13px;
-      margin: 4px 3px;
-    }
-
-    .day {
-      border-left: 3px solid #6366f1;
-      padding: 10px 0 10px 15px;
-      margin-bottom: 14px;
-    }
-
-    .day strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .day span {
-      color: #6b7280;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    @media(max-width:600px) {
-
-      .container {
-        padding-top: 20px;
-      }
-
-      .card {
-        padding: 22px;
-      }
-
-      h1 {
-        font-size: 24px;
-      }
-
-      .results h1 {
-        font-size: 28px;
-      }
-
-    }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Compass — AI Career Assessment</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #111827;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 30px 20px 60px;
+}
+
+.card {
+  background: white;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+  margin-top: 20px;
+}
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+p {
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.progress-container {
+  width: 100%;
+  height: 9px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 20px 0 30px;
+}
+
+.progress {
+  height: 100%;
+  width: 8%;
+  background: #111827;
+  transition: width 0.3s;
+}
+
+.question-number {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.option {
+  width: 100%;
+  padding: 16px;
+  margin: 10px 0;
+  border: 1px solid #dbe1ea;
+  background: white;
+  border-radius: 14px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.option:hover {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+}
+
+.hidden {
+  display: none;
+}
+
+.badge {
+  display: inline-block;
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.trait-box {
+  background: #f8fafc;
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.score-row {
+  margin: 18px 0;
+}
+
+.score-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  font-weight: bold;
+}
+
+.score-bar {
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  background: #111827;
+  border-radius: 20px;
+}
+
+.career-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 17px;
+  padding: 18px;
+  margin: 12px 0;
+}
+
+.career-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.fit {
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+.locked {
+  position: relative;
+  overflow: hidden;
+}
+
+.blur {
+  filter: blur(7px);
+  user-select: none;
+}
+
+.unlock-box {
+  text-align: center;
+  padding: 28px 15px;
+  border: 2px dashed #c7d2fe;
+  background: #eef2ff;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.price {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.unlock-button {
+  border: none;
+  background: #111827;
+  color: white;
+  padding: 16px 25px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.small {
+  font-size: 13px;
+  color: #6b7280;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <div class="logo">
-    Career <span>Compass</span> 🧭
+  <!-- INTRO -->
+  <div id="intro" class="card">
+    <span class="badge">AI-Powered Career Assessment</span>
+
+    <h1>Find Your Career Direction.</h1>
+
+    <p>
+      Answer 12 quick questions about how you think, work and solve problems.
+      Career Compass will analyze your answers and create a personalized career profile.
+    </p>
+
+    <button class="unlock-button" onclick="startAssessment()">
+      Start Assessment →
+    </button>
   </div>
 
 
-  <!-- ========================= -->
   <!-- ASSESSMENT -->
-  <!-- ========================= -->
+  <div id="assessment" class="card hidden">
 
-  <div id="assessment">
+    <div class="question-number" id="questionNumber"></div>
 
-    <div class="progress-area">
-
-      <div class="progress-text">
-        <span id="questionCount">Question 1 of 12</span>
-        <span id="percentage">8%</span>
-      </div>
-
-      <div class="progress-bar">
-        <div class="progress" id="progress"></div>
-      </div>
-
+    <div class="progress-container">
+      <div class="progress" id="progress"></div>
     </div>
 
+    <h2 id="question"></h2>
 
-    <div class="card">
-
-      <div class="question-number" id="questionNumber">
-        QUESTION 01
-      </div>
-
-      <h1 id="questionText"></h1>
-
-      <div id="options"></div>
-
-      <button
-        class="continue-btn"
-        id="continueBtn"
-        disabled
-        onclick="nextQuestion()">
-        Continue →
-      </button>
-
-    </div>
+    <div id="options"></div>
 
   </div>
 
 
-  <!-- ========================= -->
   <!-- RESULTS -->
-  <!-- ========================= -->
-
-  <div class="results" id="results">
+  <div id="results" class="hidden">
 
     <div class="card">
 
-      <div class="badge">
-        FREE CAREER PREVIEW
+      <span class="badge">FREE CAREER PREVIEW</span>
+
+      <h1 id="profileTitle"></h1>
+
+      <p id="profileDescription"></p>
+
+      <div class="trait-box">
+        <h3>Your strongest traits</h3>
+        <div id="traitScores"></div>
       </div>
 
-      <h1 id="resultTitle"></h1>
-
-      <p class="subtitle" id="resultDescription"></p>
+    </div>
 
 
-      <!-- PROFILE -->
+    <!-- CAREER PREVIEW -->
+    <div class="card">
 
-      <div class="profile">
+      <h2>🎯 Your Potential Career Matches</h2>
 
-        <div class="profile-label">
-          Your career profile
-        </div>
+      <p>
+        Based on your assessment profile, these career directions may fit your
+        natural strengths and preferences.
+      </p>
 
-        <h2 id="profileTitle"></h2>
+      <div id="careerPreview"></div>
 
-        <p id="profileText"></p>
+    </div>
 
+
+    <!-- FREE INSIGHTS -->
+    <div class="card">
+
+      <h2>🔎 3 Free Insights</h2>
+
+      <div class="trait-box">
+        <strong>💪 Natural advantage</strong>
+        <p id="insightStrength"></p>
       </div>
 
+      <div class="trait-box">
+        <strong>🧠 How you tend to work</strong>
+        <p id="insightWork"></p>
+      </div>
 
-      <!-- FREE INSIGHTS -->
+      <div class="trait-box">
+        <strong>⚡ Growth opportunity</strong>
+        <p id="insightGrowth"></p>
+      </div>
 
-      <h2 class="section-title">
-        Your first insights
-      </h2>
-
-      <div id="insights"></div>
-
-
-      <!-- LOCKED REPORT -->
-
-      <h2 class="section-title">
-        Your Full Career Blueprint 🔒
-      </h2>
-
-      <div class="locked">
-
-        <div class="locked-content">
-
-          <div class="fake-section">
-
-            <h3>Top Career Directions</h3>
-
-            <div class="fake-line long"></div>
-            <div class="fake-line medium"></div>
-            <div class="fake-line long"></div>
-
-          </div>
-
-          <div class="fake-section">
-
-            <h3>Your Strengths</h3>
-
-            <div class="fake-line long"></div>
-            <div class="fake-line short"></div>
-            <div class="fake-line medium"></div>
-
-          </div>
-
-          <div class="fake-section">
-
-            <h3>Your 30-Day Plan</h3>
-
-            <div class="fake-line long"></div>
-            <div class="fake-line medium"></div>
-
-          </div>
-
-        </div>
+    </div>
 
 
-        <div class="lock-overlay">
+    <!-- LOCKED REPORT -->
+    <div class="card locked">
 
-          <div class="lock-box">
+      <h2>🔒 Your Full Career Blueprint</h2>
 
-            <div class="lock-icon">
-              🔒
-            </div>
+      <div class="blur">
 
-            <h3>
-              Your personalized blueprint is ready
-            </h3>
+        <h3>🚀 Your Best Career Directions</h3>
+        <p>Personalized career recommendations based on your unique profile.</p>
 
-            <p>
-              Your answers have been analysed.
-              Unlock the complete report to see your
-              career directions, strengths, skills,
-              projects and 30-day action plan.
-            </p>
+        <h3>💪 Your Strongest Strengths</h3>
+        <p>Detailed strengths and how they can help you professionally.</p>
 
-            <div class="price">
-              ₹99
-            </div>
+        <h3>⚠️ Potential Blind Spots</h3>
+        <p>Areas that could hold you back and how to improve them.</p>
 
-            <button
-              class="unlock-btn"
-              onclick="unlockReport()">
-              Unlock My Career Blueprint →
-            </button>
+        <h3>🛠 Skills To Develop</h3>
+        <p>A personalized list of useful skills to build.</p>
 
-          </div>
+        <h3>🧪 Projects To Try</h3>
+        <p>Real-world projects designed to help you test career directions.</p>
 
-        </div>
+        <h3>📅 30-Day Exploration Plan</h3>
+        <p>A step-by-step plan for exploring your career options.</p>
 
       </div>
 
+      <div class="unlock-box">
 
-      <!-- FEATURES -->
+        <h2>Unlock Your Full Blueprint</h2>
 
-      <div class="features">
-
-        <div class="feature">
-          🧭 Your top career directions
-        </div>
-
-        <div class="feature">
-          💪 Your strongest strengths
-        </div>
-
-        <div class="feature">
-          ⚠️ Potential blind spots
-        </div>
-
-        <div class="feature">
-          🛠️ Skills worth developing
-        </div>
-
-        <div class="feature">
-          🚀 Personalized project ideas
-        </div>
-
-        <div class="feature">
-          📅 30-day career exploration plan
-        </div>
-
-      </div>
-
-
-      <!-- FULL BLUEPRINT -->
-      <!-- Hidden for now. Payment will unlock this later. -->
-
-      <div class="blueprint" id="blueprint">
-
-        <div class="blueprint-header">
-
-          <small>
-            CAREER COMPASS BLUEPRINT
-          </small>
-
-          <h2 id="blueprintTitle"></h2>
-
-          <p id="blueprintIntro"></p>
-
-        </div>
-
-
-        <!-- CAREER DIRECTIONS -->
-
-        <div class="blueprint-card">
-
-          <h3>
-            🧭 Career Directions
-          </h3>
-
-          <div id="careerDirections"></div>
-
-        </div>
-
-
-        <!-- STRENGTHS -->
-
-        <div class="blueprint-card">
-
-          <h3>
-            💪 Your Strongest Strengths
-          </h3>
-
-          <div id="strengths"></div>
-
-        </div>
-
-
-        <!-- BLIND SPOTS -->
-
-        <div class="blueprint-card">
-
-          <h3>
-            ⚠️ Potential Blind Spots
-          </h3>
-
-          <div id="blindSpots"></div>
-
-        </div>
-
-
-        <!-- SKILLS -->
-
-        <div class="blueprint-card">
-
-          <h3>
-            🛠️ Skills To Develop
-          </h3>
-
-          <div id="skills"></div>
-
-        </div>
-
-
-        <!-- PROJECTS -->
-
-        <div class="blueprint-card">
-
-          <h3>
-            🚀 Projects To Try
-          </h3>
-
-          <div id="projects"></div>
-
-        </div>
-
-
-        <!-- 30 DAY PLAN -->
-
-        <div class="blueprint-card">
-
-          <h3>
-            📅 Your 30-Day Exploration Plan
-          </h3>
-
-          <div id="plan"></div>
-
-        </div>
-
-
-        <p class="note">
-          Career Compass is an exploratory tool and does not
-          guarantee a specific career outcome.
+        <p>
+          Get your personalized career roadmap, career matches,
+          strengths, blind spots, skills and action plan.
         </p>
 
+        <div class="price">₹99</div>
+
+        <button class="unlock-button" onclick="unlockReport()">
+          Unlock My Career Blueprint →
+        </button>
+
+        <p class="small">
+          One-time purchase • Personalized report
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- ACTUAL BLUEPRINT -->
+    <div id="blueprint" class="card hidden">
+
+      <span class="badge">YOUR PERSONAL CAREER BLUEPRINT</span>
+
+      <h1 id="blueprintTitle"></h1>
+
+      <p id="blueprintIntro"></p>
+
+
+      <h2>🎯 Career Fit Scores</h2>
+
+      <div id="careerMatches"></div>
+
+
+      <h2>💪 Your Strongest Strengths</h2>
+
+      <div id="strengths"></div>
+
+
+      <h2>⚠️ Potential Blind Spots</h2>
+
+      <div id="blindSpots"></div>
+
+
+      <h2>🛠 Skills To Develop</h2>
+
+      <div id="skills"></div>
+
+
+      <h2>🧪 Projects To Try</h2>
+
+      <div id="projects"></div>
+
+
+      <h2>📅 Your 30-Day Exploration Plan</h2>
+
+      <div id="plan"></div>
+
+
+      <div class="trait-box">
+        <strong>🧭 Final advice</strong>
+        <p>
+          Don't choose a career only because it sounds impressive.
+          Use this blueprint as a starting point, then test your interests
+          through real projects, conversations and experiences.
+        </p>
       </div>
 
     </div>
@@ -773,167 +393,407 @@
 
 <script>
 
-
-/* ========================================= */
-/* QUESTIONS */
-/* ========================================= */
-
 const questions = [
 
   {
-    question: "You suddenly get a free weekend. What sounds most satisfying?",
+    q: "When you face a difficult problem, what do you naturally do?",
     options: [
-      ["Building or figuring out something challenging", "Analytical"],
-      ["Organising something with friends", "Leadership"],
-      ["Making something creative", "Creative"],
-      ["Learning about how people think", "People"],
-      ["Trying a new business idea", "Entrepreneurial"],
-      ["Planning your goals and getting things organised", "Structured"]
-    ]
-  },
-
-  {
-    question: "Your team is stuck on a difficult problem. What do you naturally do?",
-    options: [
-      ["Break the problem into smaller parts", "Analytical"],
-      ["Take charge and decide what everyone should do", "Leadership"],
-      ["Think of an unusual solution", "Creative"],
-      ["Ask everyone what they think", "People"],
-      ["Look for a completely new opportunity", "Entrepreneurial"],
+      ["Break it down and analyze it", "Analytical"],
+      ["Take charge and find a solution", "Leadership"],
+      ["Think of an unusual approach", "Creative"],
+      ["Ask people for different perspectives", "People"],
+      ["Look for an opportunity in it", "Entrepreneurial"],
       ["Create a clear step-by-step plan", "Structured"]
     ]
   },
 
   {
-    question: "Imagine someone gives you ₹10 lakh to build something from scratch. What attracts you most?",
+    q: "Which activity sounds most interesting to you?",
     options: [
-      ["A technology or engineering product", "Analytical"],
-      ["A company with a team behind it", "Leadership"],
-      ["A visually impressive product or brand", "Creative"],
-      ["Something that improves people's lives", "People"],
-      ["A business designed to make money", "Entrepreneurial"],
-      ["A reliable system that solves an everyday problem", "Structured"]
+      ["Solving puzzles or analyzing data", "Analytical"],
+      ["Leading a team or event", "Leadership"],
+      ["Designing or creating something", "Creative"],
+      ["Helping or communicating with people", "People"],
+      ["Starting a small business or project", "Entrepreneurial"],
+      ["Organizing tasks and systems", "Structured"]
     ]
   },
 
   {
-    question: "Which compliment would mean the most to you?",
+    q: "What type of success feels most satisfying?",
     options: [
-      ["You're really smart at solving problems.", "Analytical"],
-      ["You're someone people naturally follow.", "Leadership"],
-      ["You have a really creative mind.", "Creative"],
-      ["You understand people really well.", "People"],
-      ["You always see opportunities others miss.", "Entrepreneurial"],
-      ["You are extremely organised and dependable.", "Structured"]
+      ["Solving something others couldn't", "Analytical"],
+      ["Getting people to achieve a goal", "Leadership"],
+      ["Creating something original", "Creative"],
+      ["Making a positive difference to someone", "People"],
+      ["Building something that earns money", "Entrepreneurial"],
+      ["Creating something efficient and reliable", "Structured"]
     ]
   },
 
   {
-    question: "You're given a completely unfamiliar task. Your first reaction is usually:",
+    q: "In a group project, which role would you probably take?",
     options: [
-      ["Let's understand how it works.", "Analytical"],
-      ["Let's get people together and start.", "Leadership"],
-      ["Let's experiment and see what happens.", "Creative"],
-      ["Let's understand who this is actually helping.", "People"],
-      ["Could this turn into something bigger?", "Entrepreneurial"],
-      ["Let me figure out exactly what needs to be done.", "Structured"]
+      ["Researcher", "Analytical"],
+      ["Leader", "Leadership"],
+      ["Idea generator", "Creative"],
+      ["Communicator", "People"],
+      ["Business/strategy person", "Entrepreneurial"],
+      ["Organizer", "Structured"]
     ]
   },
 
   {
-    question: "Which kind of achievement would make you most proud?",
+    q: "Which environment would you enjoy most?",
     options: [
-      ["Solving something that seemed impossible", "Analytical"],
-      ["Leading a team to a big result", "Leadership"],
-      ["Creating something people remember", "Creative"],
-      ["Helping someone make a major improvement in their life", "People"],
-      ["Turning an idea into a successful business", "Entrepreneurial"],
-      ["Building something reliable that works extremely well", "Structured"]
+      ["Technology or research", "Analytical"],
+      ["Fast-moving team environment", "Leadership"],
+      ["Creative studio", "Creative"],
+      ["People-focused environment", "People"],
+      ["Startup or business environment", "Entrepreneurial"],
+      ["Organized professional environment", "Structured"]
     ]
   },
 
   {
-    question: "If you had to spend six hours doing one thing, which would bother you the least?",
+    q: "When learning something new, what do you prefer?",
     options: [
-      ["Analysing information and finding patterns", "Analytical"],
-      ["Talking, organising and making decisions", "Leadership"],
-      ["Designing, writing or creating", "Creative"],
-      ["Talking with and helping different people", "People"],
-      ["Planning ideas and opportunities", "Entrepreneurial"],
-      ["Working through a clear system or process", "Structured"]
+      ["Understanding how it works", "Analytical"],
+      ["Learning by taking responsibility", "Leadership"],
+      ["Experimenting with it", "Creative"],
+      ["Discussing it with others", "People"],
+      ["Finding how it could be useful", "Entrepreneurial"],
+      ["Following a clear learning path", "Structured"]
     ]
   },
 
   {
-    question: "A friend brings you a complicated problem. What are you most likely to do?",
+    q: "What would frustrate you the most?",
     options: [
-      ["Analyse the situation logically", "Analytical"],
-      ["Tell them what I think they should do", "Leadership"],
-      ["Suggest an unconventional solution", "Creative"],
-      ["Listen carefully before giving advice", "People"],
-      ["Look for an opportunity hidden inside the problem", "Entrepreneurial"],
-      ["Help them make a practical action plan", "Structured"]
+      ["A problem that makes no logical sense", "Analytical"],
+      ["Not being able to make decisions", "Leadership"],
+      ["Having no freedom to create", "Creative"],
+      ["Working with people who don't communicate", "People"],
+      ["Having no opportunity to grow", "Entrepreneurial"],
+      ["Constantly changing plans", "Structured"]
     ]
   },
 
   {
-    question: "Which environment sounds most interesting?",
+    q: "Which skill would you most like to become excellent at?",
     options: [
-      ["Technology, science or engineering", "Analytical"],
-      ["A fast-moving team where I can lead", "Leadership"],
-      ["Design, media or creative work", "Creative"],
-      ["Psychology, education or community", "People"],
-      ["Startups, business or innovation", "Entrepreneurial"],
-      ["Finance, operations or organised systems", "Structured"]
+      ["Critical thinking", "Analytical"],
+      ["Leadership", "Leadership"],
+      ["Creativity", "Creative"],
+      ["Communication", "People"],
+      ["Business", "Entrepreneurial"],
+      ["Organization", "Structured"]
     ]
   },
 
   {
-    question: "When you imagine your future work, what matters most?",
+    q: "If you had a free weekend to build something, what would you choose?",
     options: [
-      ["Being intellectually challenged", "Analytical"],
-      ["Having influence and responsibility", "Leadership"],
-      ["Having freedom to create", "Creative"],
-      ["Making a meaningful difference to people", "People"],
-      ["Building something of my own", "Entrepreneurial"],
-      ["Having stability and a clear path to grow", "Structured"]
+      ["An app or technical project", "Analytical"],
+      ["A team challenge", "Leadership"],
+      ["A creative design/project", "Creative"],
+      ["A community project", "People"],
+      ["A small online business", "Entrepreneurial"],
+      ["A useful productivity system", "Structured"]
     ]
   },
 
   {
-    question: "You discover a new app that nobody around you knows about. What do you do?",
-    options: [
-      ["Explore how the technology works", "Analytical"],
-      ["Show it to people and get everyone interested", "Leadership"],
-      ["Think about how it could be redesigned", "Creative"],
-      ["Wonder how it could help people", "People"],
-      ["Think about whether it could become a business", "Entrepreneurial"],
-      ["Test its features and figure out the best way to use it", "Structured"]
-    ]
-  },
-
-  {
-    question: "Which sentence sounds most like you?",
+    q: "Which statement sounds most like you?",
     options: [
       ["I like understanding things deeply.", "Analytical"],
-      ["I like making things happen.", "Leadership"],
-      ["I like expressing ideas in original ways.", "Creative"],
-      ["I like understanding and supporting people.", "People"],
-      ["I like spotting opportunities and taking initiative.", "Entrepreneurial"],
-      ["I like turning chaos into a clear system.", "Structured"]
+      ["I naturally take responsibility.", "Leadership"],
+      ["I get lots of ideas.", "Creative"],
+      ["I understand people well.", "People"],
+      ["I notice opportunities.", "Entrepreneurial"],
+      ["I like things organized.", "Structured"]
+    ]
+  },
+
+  {
+    q: "What motivates you most?",
+    options: [
+      ["Intellectual challenge", "Analytical"],
+      ["Achievement and influence", "Leadership"],
+      ["Freedom and originality", "Creative"],
+      ["Connection and impact", "People"],
+      ["Growth and independence", "Entrepreneurial"],
+      ["Progress and stability", "Structured"]
+    ]
+  },
+
+  {
+    q: "If you could instantly improve one ability, which would you choose?",
+    options: [
+      ["Problem solving", "Analytical"],
+      ["Decision making", "Leadership"],
+      ["Creative thinking", "Creative"],
+      ["Communication", "People"],
+      ["Business thinking", "Entrepreneurial"],
+      ["Planning", "Structured"]
     ]
   }
 
 ];
 
 
-/* ========================================= */
-/* STATE */
-/* ========================================= */
+const traitInfo = {
+
+  Analytical: {
+    title: "The Analytical Thinker",
+    description: "You naturally enjoy understanding problems, spotting patterns and figuring out how things work.",
+    intro: "Your profile suggests a strong analytical mindset. You may thrive when there is a challenging problem to solve and enough freedom to explore the solution.",
+    careers: [
+      "Software Developer",
+      "Data Analyst",
+      "Engineer",
+      "Cybersecurity Specialist"
+    ],
+    strengths: [
+      "Logical problem solving",
+      "Deep analysis",
+      "Pattern recognition",
+      "Learning complex concepts"
+    ],
+    blindSpots: [
+      "Overthinking decisions",
+      "Spending too long perfecting solutions",
+      "Ignoring the people side of a problem"
+    ],
+    skills: [
+      "Programming",
+      "Data analysis",
+      "Communication",
+      "Decision making",
+      "Project execution"
+    ],
+    projects: [
+      "Build a small website or app",
+      "Analyze a real-world dataset",
+      "Learn the basics of Python"
+    ],
+    plan: [
+      "Week 1 — Explore two analytical careers",
+      "Week 2 — Complete a beginner technical project",
+      "Week 3 — Talk to or interview someone in the field",
+      "Week 4 — Decide which direction you want to explore deeper"
+    ]
+  },
+
+  Leadership: {
+    title: "The Natural Leader",
+    description: "You tend to take responsibility, make decisions and move people toward a goal.",
+    intro: "Your profile suggests that responsibility and influence may energize you. You may perform well when you have ownership over a project or team.",
+    careers: [
+      "Business Manager",
+      "Project Manager",
+      "Entrepreneur",
+      "Marketing Manager"
+    ],
+    strengths: [
+      "Decision making",
+      "Taking initiative",
+      "Motivating others",
+      "Handling responsibility"
+    ],
+    blindSpots: [
+      "Trying to control everything",
+      "Moving too quickly",
+      "Not always listening enough"
+    ],
+    skills: [
+      "Communication",
+      "Negotiation",
+      "Project management",
+      "Public speaking",
+      "Strategic thinking"
+    ],
+    projects: [
+      "Lead a small team project",
+      "Organize an event or activity",
+      "Build a small business experiment"
+    ],
+    plan: [
+      "Week 1 — Identify three leadership-heavy careers",
+      "Week 2 — Lead a small project",
+      "Week 3 — Practice communication and delegation",
+      "Week 4 — Reflect on whether leadership actually energizes you"
+    ]
+  },
+
+  Creative: {
+    title: "The Creative Builder",
+    description: "You enjoy ideas, originality and creating things that did not exist before.",
+    intro: "Your profile suggests that freedom and creativity may be important to you. You may do your best work when there is room to experiment.",
+    careers: [
+      "Product Designer",
+      "UX/UI Designer",
+      "Content Creator",
+      "Creative Director"
+    ],
+    strengths: [
+      "Idea generation",
+      "Original thinking",
+      "Visual thinking",
+      "Experimentation"
+    ],
+    blindSpots: [
+      "Losing interest during repetitive work",
+      "Starting too many ideas",
+      "Difficulty finishing projects"
+    ],
+    skills: [
+      "Design",
+      "Storytelling",
+      "Video editing",
+      "User experience",
+      "Presentation"
+    ],
+    projects: [
+      "Design a mobile app concept",
+      "Create a brand identity",
+      "Make a short creative portfolio"
+    ],
+    plan: [
+      "Week 1 — Explore creative career paths",
+      "Week 2 — Complete one design project",
+      "Week 3 — Build a small portfolio",
+      "Week 4 — Ask others for feedback and improve it"
+    ]
+  },
+
+  People: {
+    title: "The People Connector",
+    description: "You naturally value communication, relationships and helping people.",
+    intro: "Your profile suggests that human interaction and meaningful impact may be strong motivators for you.",
+    careers: [
+      "Teacher",
+      "Psychologist",
+      "Human Resources Specialist",
+      "Sales Professional"
+    ],
+    strengths: [
+      "Communication",
+      "Empathy",
+      "Relationship building",
+      "Understanding different perspectives"
+    ],
+    blindSpots: [
+      "Taking criticism personally",
+      "Saying yes too often",
+      "Avoiding difficult conversations"
+    ],
+    skills: [
+      "Public speaking",
+      "Negotiation",
+      "Leadership",
+      "Active listening",
+      "Networking"
+    ],
+    projects: [
+      "Volunteer for a community project",
+      "Interview people about their careers",
+      "Practice public speaking"
+    ],
+    plan: [
+      "Week 1 — Explore people-focused careers",
+      "Week 2 — Practice communication",
+      "Week 3 — Interview someone working in one of these fields",
+      "Week 4 — Identify which type of people-work feels most natural"
+    ]
+  },
+
+  Entrepreneurial: {
+    title: "The Opportunity Seeker",
+    description: "You tend to notice opportunities, think independently and enjoy building things.",
+    intro: "Your profile suggests that independence, growth and creating opportunities may motivate you strongly.",
+    careers: [
+      "Entrepreneur",
+      "Startup Founder",
+      "Product Manager",
+      "Business Development"
+    ],
+    strengths: [
+      "Opportunity spotting",
+      "Initiative",
+      "Risk awareness",
+      "Independent thinking"
+    ],
+    blindSpots: [
+      "Chasing too many opportunities",
+      "Underestimating execution",
+      "Taking unnecessary risks"
+    ],
+    skills: [
+      "Sales",
+      "Marketing",
+      "Finance basics",
+      "Product development",
+      "Negotiation"
+    ],
+    projects: [
+      "Start a tiny online business experiment",
+      "Create and test a product idea",
+      "Build a simple landing page"
+    ],
+    plan: [
+      "Week 1 — Identify three business problems",
+      "Week 2 — Create a simple solution",
+      "Week 3 — Get feedback from real people",
+      "Week 4 — Improve the idea based on what you learned"
+    ]
+  },
+
+  Structured: {
+    title: "The Organized Strategist",
+    description: "You value organization, reliability and clear systems.",
+    intro: "Your profile suggests that you may perform well when goals, processes and expectations are clear.",
+    careers: [
+      "Financial Analyst",
+      "Operations Manager",
+      "Accountant",
+      "Project Coordinator"
+    ],
+    strengths: [
+      "Organization",
+      "Consistency",
+      "Planning",
+      "Attention to detail"
+    ],
+    blindSpots: [
+      "Discomfort with uncertainty",
+      "Over-planning",
+      "Difficulty adapting to sudden changes"
+    ],
+    skills: [
+      "Project management",
+      "Financial literacy",
+      "Excel",
+      "Time management",
+      "Process improvement"
+    ],
+    projects: [
+      "Build a personal productivity system",
+      "Create a simple budget tracker",
+      "Organize a small project from start to finish"
+    ],
+    plan: [
+      "Week 1 — Explore structured career paths",
+      "Week 2 — Build an organization system",
+      "Week 3 — Complete a small project",
+      "Week 4 — Review what type of work you enjoyed most"
+    ]
+  }
+
+};
+
 
 let currentQuestion = 0;
-
-let selectedTrait = null;
 
 let scores = {
   Analytical: 0,
@@ -945,422 +805,53 @@ let scores = {
 };
 
 
-/* ========================================= */
-/* TRAIT INFORMATION */
-/* ========================================= */
+function startAssessment() {
 
-const traitInfo = {
+  document.getElementById("intro").classList.add("hidden");
 
-  Analytical: {
+  document.getElementById("assessment").classList.remove("hidden");
 
-    title: "The Problem Solver",
+  showQuestion();
 
-    description:
-      "You seem naturally drawn to understanding complex problems, finding patterns and figuring out how things work.",
+}
 
-    intro:
-      "Your answers suggest that curiosity, logic and problem-solving are important parts of how you approach challenges.",
-
-    careers: [
-      ["Software Developer", "Good fit if you enjoy building systems and solving technical problems."],
-      ["Engineer", "A strong direction if you enjoy applying logic to real-world challenges."],
-      ["Data Analyst", "Useful if patterns, numbers and evidence naturally interest you."],
-      ["Cybersecurity", "A possible path if you enjoy investigating problems and thinking several steps ahead."]
-    ],
-
-    strengths: [
-      "Logical problem-solving",
-      "Curiosity",
-      "Pattern recognition",
-      "Learning complex ideas"
-    ],
-
-    blindSpots: [
-      "You may spend too long analysing before acting.",
-      "Highly repetitive work could become frustrating.",
-      "Remember that communication matters as much as technical ability."
-    ],
-
-    skills: [
-      "Programming",
-      "Data analysis",
-      "Critical thinking",
-      "Research",
-      "Communication"
-    ],
-
-    projects: [
-      "Build a simple website or app that solves a small problem.",
-      "Analyse a real dataset and turn your findings into a visual report.",
-      "Learn the basics of Python and create a small automation."
-    ],
-
-    plan: [
-      ["Days 1–7", "Choose one technical area and learn the fundamentals for 30–45 minutes each day."],
-      ["Days 8–15", "Build a tiny project using what you learned."],
-      ["Days 16–23", "Improve the project and document what you discovered."],
-      ["Days 24–30", "Decide whether you genuinely enjoyed the process and explore the next level."]
-    ]
-
-  },
-
-
-  Leadership: {
-
-    title: "The Leader",
-
-    description:
-      "You seem comfortable taking responsibility, making decisions and getting people moving toward a goal.",
-
-    intro:
-      "Your answers suggest that influence, responsibility and getting things moving may energise you.",
-
-    careers: [
-      ["Business Manager", "A direction where decision-making and coordinating people are important."],
-      ["Entrepreneur", "Potentially strong if you also enjoy creating opportunities."],
-      ["Project Manager", "Good for organising people and resources around a clear goal."],
-      ["Team or Operations Lead", "Useful if you enjoy responsibility and improving how teams work."]
-    ],
-
-    strengths: [
-      "Decision-making",
-      "Initiative",
-      "Taking responsibility",
-      "Motivating others"
-    ],
-
-    blindSpots: [
-      "You may move quickly without hearing every perspective.",
-      "Delegating is often more powerful than doing everything yourself.",
-      "Strong leadership requires patience as well as confidence."
-    ],
-
-    skills: [
-      "Public speaking",
-      "Negotiation",
-      "Team management",
-      "Decision-making",
-      "Presentation"
-    ],
-
-    projects: [
-      "Lead a small school or community project.",
-      "Organise a team challenge with a clear goal.",
-      "Create a small business idea and develop a basic plan with a team."
-    ],
-
-    plan: [
-      ["Days 1–7", "Practise communicating ideas clearly and confidently."],
-      ["Days 8–15", "Take responsibility for a small team project."],
-      ["Days 16–23", "Ask teammates what worked and what did not."],
-      ["Days 24–30", "Reflect on whether leading people actually energises you."]
-    ]
-
-  },
-
-
-  Creative: {
-
-    title: "The Creator",
-
-    description:
-      "You appear to value originality, self-expression and turning ideas into something people can experience.",
-
-    intro:
-      "Your answers suggest that freedom, originality and creating something distinctive may be important to you.",
-
-    careers: [
-      ["Product Designer", "A strong option if you enjoy solving problems through design."],
-      ["Brand Designer", "Good if you enjoy visual identity, storytelling and creative strategy."],
-      ["Content Creator", "Potentially interesting if you enjoy communication and experimentation."],
-      ["UX/UI Designer", "Combines creativity with practical problem-solving."]
-    ],
-
-    strengths: [
-      "Original thinking",
-      "Idea generation",
-      "Visual or conceptual thinking",
-      "Experimentation"
-    ],
-
-    blindSpots: [
-      "Too many ideas can make it difficult to finish one.",
-      "Creative work still benefits from structure and deadlines.",
-      "Not every idea needs to be perfect before you test it."
-    ],
-
-    skills: [
-      "Design",
-      "Storytelling",
-      "Video editing",
-      "UX/UI",
-      "Creative strategy"
-    ],
-
-    projects: [
-      "Redesign an app or website you use regularly.",
-      "Create a complete visual identity for an imaginary brand.",
-      "Make a short creative project and publish the finished version."
-    ],
-
-    plan: [
-      ["Days 1–7", "Choose one creative skill and practise it every day."],
-      ["Days 8–15", "Create a small project from scratch."],
-      ["Days 16–23", "Get feedback and improve the project."],
-      ["Days 24–30", "Create one final piece that represents your current ability."]
-    ]
-
-  },
-
-
-  People: {
-
-    title: "The People Connector",
-
-    description:
-      "You seem interested in people, communication and understanding what makes others think and act.",
-
-    intro:
-      "Your answers suggest that understanding people and creating meaningful interactions may be important to you.",
-
-    careers: [
-      ["Psychology", "A possible direction if understanding behaviour deeply interests you."],
-      ["Teaching", "Strong if you enjoy explaining ideas and helping others grow."],
-      ["Human Resources", "Combines people skills with organisational decision-making."],
-      ["Marketing", "Useful if you enjoy understanding what motivates people."]
-    ],
-
-    strengths: [
-      "Empathy",
-      "Listening",
-      "Communication",
-      "Understanding different perspectives"
-    ],
-
-    blindSpots: [
-      "You may prioritise other people's needs over your own goals.",
-      "Good communication also requires setting boundaries.",
-      "Make decisions using evidence as well as intuition about people."
-    ],
-
-    skills: [
-      "Communication",
-      "Psychology",
-      "Presentation",
-      "Interviewing",
-      "Conflict resolution"
-    ],
-
-    projects: [
-      "Interview five people about how they chose their careers.",
-      "Create a small survey and analyse the responses.",
-      "Teach someone a skill you know and improve your explanation based on their feedback."
-    ],
-
-    plan: [
-      ["Days 1–7", "Practise active listening and better questions."],
-      ["Days 8–15", "Interview people about their work and motivations."],
-      ["Days 16–23", "Research two people-focused careers."],
-      ["Days 24–30", "Choose one area and test it through a small project."]
-    ]
-
-  },
-
-
-  Entrepreneurial: {
-
-    title: "The Opportunity Seeker",
-
-    description:
-      "You appear attracted to independence, opportunities, experimentation and building something from the ground up.",
-
-    intro:
-      "Your answers suggest that creating opportunities and turning ideas into something real may strongly interest you.",
-
-    careers: [
-      ["Entrepreneur", "A natural direction if independence and building businesses excite you."],
-      ["Product Manager", "Combines ideas, users, strategy and execution."],
-      ["Startup / Business Development", "Good if you enjoy spotting opportunities and making things happen."],
-      ["Marketing Strategist", "Useful if you enjoy understanding markets and growing ideas."]
-    ],
-
-    strengths: [
-      "Initiative",
-      "Opportunity spotting",
-      "Independence",
-      "Experimentation"
-    ],
-
-    blindSpots: [
-      "Exciting ideas can be easier to start than to finish.",
-      "Not every opportunity is worth pursuing.",
-      "Learning fundamentals before scaling an idea can save a lot of time."
-    ],
-
-    skills: [
-      "Sales",
-      "Marketing",
-      "Business fundamentals",
-      "Communication",
-      "Financial literacy"
-    ],
-
-    projects: [
-      "Create a tiny digital product and test whether people want it.",
-      "Research a local problem and design a simple business solution.",
-      "Create a mock brand and build a basic marketing campaign."
-    ],
-
-    plan: [
-      ["Days 1–7", "List ten problems people around you experience."],
-      ["Days 8–15", "Choose one problem and research possible solutions."],
-      ["Days 16–23", "Build a simple prototype or offer."],
-      ["Days 24–30", "Get feedback and decide whether the idea deserves another month."]
-    ]
-
-  },
-
-
-  Structured: {
-
-    title: "The Organiser",
-
-    description:
-      "You seem to value clarity, planning, reliability and systems that make things work efficiently.",
-
-    intro:
-      "Your answers suggest that you may naturally perform well when there is a clear goal and a system for reaching it.",
-
-    careers: [
-      ["Operations", "Strong if you enjoy improving processes and keeping things organised."],
-      ["Finance", "Potentially suitable if accuracy, systems and numbers appeal to you."],
-      ["Project Management", "Combines planning, organisation and communication."],
-      ["Business Analysis", "A useful mix of structured thinking and problem-solving."]
-    ],
-
-    strengths: [
-      "Organisation",
-      "Reliability",
-      "Planning",
-      "Attention to detail"
-    ],
-
-    blindSpots: [
-      "Too much structure can sometimes make experimentation harder.",
-      "Unexpected changes may feel frustrating.",
-      "Practise becoming comfortable when there is no perfect plan."
-    ],
-
-    skills: [
-      "Project management",
-      "Excel / spreadsheets",
-      "Financial literacy",
-      "Planning",
-      "Process improvement"
-    ],
-
-    projects: [
-      "Create a complete plan for organising an event.",
-      "Build a spreadsheet system for tracking a real activity.",
-      "Find a repetitive process and design a better system for it."
-    ],
-
-    plan: [
-      ["Days 1–7", "Learn one productivity or project-management method."],
-      ["Days 8–15", "Use it to organise a real project."],
-      ["Days 16–23", "Improve the system based on what went wrong."],
-      ["Days 24–30", "Reflect on whether improving systems is something you genuinely enjoy."]
-    ]
-
-  }
-
-};
-
-
-/* ========================================= */
-/* SHOW QUESTION */
-/* ========================================= */
 
 function showQuestion() {
 
   const q = questions[currentQuestion];
 
   document.getElementById("questionNumber").textContent =
-    "QUESTION " +
-    String(currentQuestion + 1).padStart(2, "0");
+    `Question ${currentQuestion + 1} of ${questions.length}`;
 
-  document.getElementById("questionText").textContent =
-    q.question;
-
-  document.getElementById("questionCount").textContent =
-    "Question " +
-    (currentQuestion + 1) +
-    " of " +
-    questions.length;
-
-  const percent =
-    Math.round(
-      ((currentQuestion + 1) /
-      questions.length) * 100
-    );
-
-  document.getElementById("percentage").textContent =
-    percent + "%";
+  document.getElementById("question").textContent = q.q;
 
   document.getElementById("progress").style.width =
-    percent + "%";
+    `${((currentQuestion + 1) / questions.length) * 100}%`;
 
-  const optionsContainer =
-    document.getElementById("options");
+  const options = document.getElementById("options");
 
-  optionsContainer.innerHTML = "";
-
-  selectedTrait = null;
-
-  document.getElementById("continueBtn").disabled = true;
-
+  options.innerHTML = "";
 
   q.options.forEach(option => {
 
-    const div = document.createElement("div");
+    const button = document.createElement("button");
 
-    div.className = "option";
+    button.className = "option";
 
-    div.textContent = option[0];
+    button.textContent = option[0];
 
-    div.onclick = function() {
+    button.onclick = () => selectAnswer(option[1]);
 
-      document
-        .querySelectorAll(".option")
-        .forEach(item => {
-          item.classList.remove("selected");
-        });
-
-      div.classList.add("selected");
-
-      selectedTrait = option[1];
-
-      document.getElementById("continueBtn")
-        .disabled = false;
-
-    };
-
-    optionsContainer.appendChild(div);
+    options.appendChild(button);
 
   });
 
 }
 
 
-/* ========================================= */
-/* NEXT QUESTION */
-/* ========================================= */
+function selectAnswer(trait) {
 
-function nextQuestion() {
-
-  if (!selectedTrait) return;
-
-  scores[selectedTrait]++;
+  scores[trait]++;
 
   currentQuestion++;
 
@@ -1370,320 +861,4 @@ function nextQuestion() {
 
   } else {
 
-    showResults();
-
-  }
-
-}
-
-
-/* ========================================= */
-/* GET SORTED TRAITS */
-/* ========================================= */
-
-function getSortedTraits() {
-
-  return Object.entries(scores)
-    .sort((a, b) => {
-
-      if (b[1] !== a[1]) {
-        return b[1] - a[1];
-      }
-
-      return a[0].localeCompare(b[0]);
-
-    });
-
-}
-
-
-/* ========================================= */
-/* SHOW RESULTS */
-/* ========================================= */
-
-function showResults() {
-
-  document.getElementById("assessment")
-    .style.display = "none";
-
-  document.getElementById("results")
-    .style.display = "block";
-
-
-  const sorted = getSortedTraits();
-
-  const topTrait = sorted[0][0];
-
-  const secondTrait = sorted[1][0];
-
-  const info = traitInfo[topTrait];
-
-
-  document.getElementById("resultTitle")
-    .textContent = info.title;
-
-
-  document.getElementById("resultDescription")
-    .textContent = info.description;
-
-
-  document.getElementById("profileTitle")
-    .textContent =
-      topTrait +
-      " + " +
-      secondTrait;
-
-
-  document.getElementById("profileText")
-    .textContent =
-      "Your strongest signal is " +
-      topTrait.toLowerCase() +
-      ", supported by " +
-      secondTrait.toLowerCase() +
-      ". This combination gives you several career directions worth exploring.";
-
-
-  /* FREE INSIGHTS */
-
-  const insightsContainer =
-    document.getElementById("insights");
-
-  insightsContainer.innerHTML = "";
-
-
-  const insightData = [
-
-    [
-      "Your strongest signal",
-      "Your answers showed the strongest connection with " +
-      topTrait.toLowerCase() +
-      "."
-    ],
-
-    [
-      "Your second signal",
-      secondTrait +
-      " also appeared across your answers."
-    ],
-
-    [
-      "Your profile",
-      "You may enjoy careers where " +
-      topTrait.toLowerCase() +
-      " and " +
-      secondTrait.toLowerCase() +
-      " work together."
-    ]
-
-  ];
-
-
-  insightData.forEach(item => {
-
-    const div = document.createElement("div");
-
-    div.className = "insight";
-
-    div.innerHTML = `
-      <strong>${item[0]}</strong>
-      <span>${item[1]}</span>
-    `;
-
-    insightsContainer.appendChild(div);
-
-  });
-
-
-  /* PREPARE BLUEPRINT */
-
-  generateBlueprint(topTrait, secondTrait);
-
-}
-
-
-/* ========================================= */
-/* GENERATE BLUEPRINT */
-/* ========================================= */
-
-function generateBlueprint(topTrait, secondTrait) {
-
-  const info = traitInfo[topTrait];
-
-
-  document.getElementById("blueprintTitle")
-    .textContent =
-      info.title +
-      " — Your Career Blueprint";
-
-
-  document.getElementById("blueprintIntro")
-    .textContent =
-      info.intro +
-      " Your secondary signal is " +
-      secondTrait.toLowerCase() +
-      ", which adds another useful dimension to your profile.";
-
-
-  /* CAREERS */
-
-  const careers =
-    document.getElementById("careerDirections");
-
-  careers.innerHTML = "";
-
-
-  info.careers.forEach(career => {
-
-    const div = document.createElement("div");
-
-    div.className = "career-item";
-
-    div.innerHTML = `
-      <strong>${career[0]}</strong>
-      <span>${career[1]}</span>
-    `;
-
-    careers.appendChild(div);
-
-  });
-
-
-  /* STRENGTHS */
-
-  const strengths =
-    document.getElementById("strengths");
-
-  strengths.innerHTML = "";
-
-
-  info.strengths.forEach(strength => {
-
-    const div = document.createElement("div");
-
-    div.className = "skill";
-
-    div.textContent = strength;
-
-    strengths.appendChild(div);
-
-  });
-
-
-  /* BLIND SPOTS */
-
-  const blindSpots =
-    document.getElementById("blindSpots");
-
-  blindSpots.innerHTML = "";
-
-
-  info.blindSpots.forEach(item => {
-
-    const div = document.createElement("div");
-
-    div.className = "career-item";
-
-    div.innerHTML = `
-      <span>${item}</span>
-    `;
-
-    blindSpots.appendChild(div);
-
-  });
-
-
-  /* SKILLS */
-
-  const skills =
-    document.getElementById("skills");
-
-  skills.innerHTML = "";
-
-
-  info.skills.forEach(skill => {
-
-    const div = document.createElement("div");
-
-    div.className = "skill";
-
-    div.textContent = skill;
-
-    skills.appendChild(div);
-
-  });
-
-
-  /* PROJECTS */
-
-  const projects =
-    document.getElementById("projects");
-
-  projects.innerHTML = "";
-
-
-  info.projects.forEach(project => {
-
-    const div = document.createElement("div");
-
-    div.className = "career-item";
-
-    div.innerHTML = `
-      <span>🚀 ${project}</span>
-    `;
-
-    projects.appendChild(div);
-
-  });
-
-
-  /* 30 DAY PLAN */
-
-  const plan =
-    document.getElementById("plan");
-
-  plan.innerHTML = "";
-
-
-  info.plan.forEach(item => {
-
-    const div = document.createElement("div");
-
-    div.className = "day";
-
-    div.innerHTML = `
-      <strong>${item[0]}</strong>
-      <span>${item[1]}</span>
-    `;
-
-    plan.appendChild(div);
-
-  });
-
-}
-
-
-/* ========================================= */
-/* PAYMENT PLACEHOLDER */
-/* ========================================= */
-
-function unlockReport() {
-
-  alert(
-    "Payment isn't connected yet. 🧭\n\n" +
-    "The ₹99 checkout will be connected " +
-    "after the Career Compass product is finished."
-  );
-
-}
-
-
-/* ========================================= */
-/* START */
-/* ========================================= */
-
-showQuestion();
-
-</script>
-
-</body>
-</html>
+    showResults(); } } function getSortedTraits() { return Object.entries(scores) .sort((a, b) => b[1] - a[1]); } function showResults() { document.getElementById("assessment").classList.add("hidden"); document.getElementById("results").classList.remove("hidden"); const sorted = getSortedTraits(); const topTrait = sorted[0][0]; const secondTrait = sorted[1][0]; const info = traitInfo[topTrait]; document.getElementById("profileTitle").textContent = info.title; document.getElementById("profileDescription").textContent = info.description; document.getElementById("insightStrength").textContent = info.strengths[0] + ", " + info.strengths[1] + " and " + info.strengths[2] + " appear to be natural advantages for you."; document.getElementById("insightWork").textContent = "You may enjoy work that allows you to use " + topTrait.toLowerCase() + " thinking while still having a clear goal to work toward."; document.getElementById("insightGrowth").textContent = info.blindSpots[0] + " could be something worth becoming more aware of as you develop."; // TRAIT SCORES const traitScores = document.getElementById("traitScores"); traitScores.innerHTML = ""; sorted.forEach(item => { const trait = item[0]; const score = item[1]; const percentage = Math.round((score / questions.length) * 100); traitScores.innerHTML += ` <div class="score-row"> <div class="score-header"> <span>${trait}</span> <span>${percentage}%</span> </div> <div class="score-bar"> <div class="score-fill" style="width:${percentage}%"> </div> </div> </div> `; }); // CAREER PREVIEW const careerPreview = document.getElementById("careerPreview"); careerPreview.innerHTML = ""; info.careers.slice(0, 3).forEach((career, index) => { const baseScores = [92, 87, 82]; careerPreview.innerHTML += ` <div class="career-card"> <div class="career-title"> ${career} </div> <div class="fit"> ${baseScores[index]}% profile fit </div> </div> `; }); generateBlueprint(topTrait, secondTrait); } function generateBlueprint(topTrait, secondTrait) { const info = traitInfo[topTrait]; document.getElementById("blueprintTitle").textContent = info.title + " Blueprint"; document.getElementById("blueprintIntro").textContent = info.intro + " Your second strongest trait is " + secondTrait + ", which adds another useful dimension to your profile."; const careerMatches = document.getElementById("careerMatches"); careerMatches.innerHTML = ""; const fits = [94, 89, 85, 81]; info.careers.forEach((career, index) => { careerMatches.innerHTML += ` <div class="career-card"> <div class="career-title"> ${career} </div> <div class="fit"> ${fits[index]}% profile fit </div> <p> This direction matches several of your strongest characteristics from the assessment. </p> </div> `; }); document.getElementById("strengths").innerHTML = info.strengths.map(x => `<p>✓ ${x}</p>`).join(""); document.getElementById("blindSpots").innerHTML = info.blindSpots.map(x => `<p>• ${x}</p>`).join(""); document.getElementById("skills").innerHTML = info.skills.map(x => `<p>🛠 ${x}</p>`).join(""); document.getElementById("projects").innerHTML = info.projects.map(x => `<p>🧪 ${x}</p>`).join(""); document.getElementById("plan").innerHTML = info.plan.map(x => `<p>📍 ${x}</p>`).join(""); } function unlockReport() { alert( "Payment isn't connected yet. 🧭\n\n" + "The ₹99 checkout will be connected " + "after the Career Compass product is finished." ); } </script> </body> </html> 
