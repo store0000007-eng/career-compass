@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { answers } = req.body;
+    const { answers, scores } = req.body;
 
     if (!answers || !Array.isArray(answers)) {
       return res.status(400).json({
