@@ -861,4 +861,206 @@ function selectAnswer(trait) {
 
   } else {
 
-    showResults(); } } function getSortedTraits() { return Object.entries(scores) .sort((a, b) => b[1] - a[1]); } function showResults() { document.getElementById("assessment").classList.add("hidden"); document.getElementById("results").classList.remove("hidden"); const sorted = getSortedTraits(); const topTrait = sorted[0][0]; const secondTrait = sorted[1][0]; const info = traitInfo[topTrait]; document.getElementById("profileTitle").textContent = info.title; document.getElementById("profileDescription").textContent = info.description; document.getElementById("insightStrength").textContent = info.strengths[0] + ", " + info.strengths[1] + " and " + info.strengths[2] + " appear to be natural advantages for you."; document.getElementById("insightWork").textContent = "You may enjoy work that allows you to use " + topTrait.toLowerCase() + " thinking while still having a clear goal to work toward."; document.getElementById("insightGrowth").textContent = info.blindSpots[0] + " could be something worth becoming more aware of as you develop."; // TRAIT SCORES const traitScores = document.getElementById("traitScores"); traitScores.innerHTML = ""; sorted.forEach(item => { const trait = item[0]; const score = item[1]; const percentage = Math.round((score / questions.length) * 100); traitScores.innerHTML += ` <div class="score-row"> <div class="score-header"> <span>${trait}</span> <span>${percentage}%</span> </div> <div class="score-bar"> <div class="score-fill" style="width:${percentage}%"> </div> </div> </div> `; }); // CAREER PREVIEW const careerPreview = document.getElementById("careerPreview"); careerPreview.innerHTML = ""; info.careers.slice(0, 3).forEach((career, index) => { const baseScores = [92, 87, 82]; careerPreview.innerHTML += ` <div class="career-card"> <div class="career-title"> ${career} </div> <div class="fit"> ${baseScores[index]}% profile fit </div> </div> `; }); generateBlueprint(topTrait, secondTrait); } function generateBlueprint(topTrait, secondTrait) { const info = traitInfo[topTrait]; document.getElementById("blueprintTitle").textContent = info.title + " Blueprint"; document.getElementById("blueprintIntro").textContent = info.intro + " Your second strongest trait is " + secondTrait + ", which adds another useful dimension to your profile."; const careerMatches = document.getElementById("careerMatches"); careerMatches.innerHTML = ""; const fits = [94, 89, 85, 81]; info.careers.forEach((career, index) => { careerMatches.innerHTML += ` <div class="career-card"> <div class="career-title"> ${career} </div> <div class="fit"> ${fits[index]}% profile fit </div> <p> This direction matches several of your strongest characteristics from the assessment. </p> </div> `; }); document.getElementById("strengths").innerHTML = info.strengths.map(x => `<p>✓ ${x}</p>`).join(""); document.getElementById("blindSpots").innerHTML = info.blindSpots.map(x => `<p>• ${x}</p>`).join(""); document.getElementById("skills").innerHTML = info.skills.map(x => `<p>🛠 ${x}</p>`).join(""); document.getElementById("projects").innerHTML = info.projects.map(x => `<p>🧪 ${x}</p>`).join(""); document.getElementById("plan").innerHTML = info.plan.map(x => `<p>📍 ${x}</p>`).join(""); } function unlockReport() { alert( "Payment isn't connected yet. 🧭\n\n" + "The ₹99 checkout will be connected " + "after the Career Compass product is finished." ); } </script> </body> </html> 
+  showResults();
+
+  }
+
+}
+
+
+function getSortedTraits() {
+
+  return Object.entries(scores)
+    .sort((a, b) => b[1] - a[1]);
+
+}
+
+
+function showResults() {
+
+  document.getElementById("assessment").classList.add("hidden");
+
+  document.getElementById("results").classList.remove("hidden");
+
+  const sorted = getSortedTraits();
+
+  const topTrait = sorted[0][0];
+
+  const secondTrait = sorted[1][0];
+
+  const info = traitInfo[topTrait];
+
+  document.getElementById("profileTitle").textContent =
+    info.title;
+
+  document.getElementById("profileDescription").textContent =
+    info.description;
+
+  document.getElementById("insightStrength").textContent =
+    info.strengths[0] + ", " + info.strengths[1] + " and " +
+    info.strengths[2] + " appear to be natural advantages for you.";
+
+  document.getElementById("insightWork").textContent =
+    "You may enjoy work that allows you to use " +
+    topTrait.toLowerCase() +
+    " thinking while still having a clear goal to work toward.";
+
+  document.getElementById("insightGrowth").textContent =
+    info.blindSpots[0] +
+    " could be something worth becoming more aware of as you develop.";
+
+  // TRAIT SCORES
+
+  const traitScores = document.getElementById("traitScores");
+
+  traitScores.innerHTML = "";
+
+  sorted.forEach(item => {
+
+    const trait = item[0];
+
+    const score = item[1];
+
+    const percentage = Math.round((score / questions.length) * 100);
+
+    traitScores.innerHTML += `
+
+      <div class="score-row">
+
+        <div class="score-header">
+          <span>${trait}</span>
+          <span>${percentage}%</span>
+        </div>
+
+        <div class="score-bar">
+          <div
+            class="score-fill"
+            style="width:${percentage}%">
+          </div>
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  // CAREER PREVIEW
+
+  const careerPreview =
+    document.getElementById("careerPreview");
+
+  careerPreview.innerHTML = "";
+
+  info.careers.slice(0, 3).forEach((career, index) => {
+
+    const baseScores = [92, 87, 82];
+
+    careerPreview.innerHTML += `
+
+      <div class="career-card">
+
+        <div class="career-title">
+          ${career}
+        </div>
+
+        <div class="fit">
+          ${baseScores[index]}% profile fit
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  generateBlueprint(topTrait, secondTrait);
+
+}
+
+
+function generateBlueprint(topTrait, secondTrait) {
+
+  const info = traitInfo[topTrait];
+
+  document.getElementById("blueprintTitle").textContent =
+    info.title + " Blueprint";
+
+  document.getElementById("blueprintIntro").textContent =
+    info.intro +
+    " Your second strongest trait is " +
+    secondTrait +
+    ", which adds another useful dimension to your profile.";
+
+
+  const careerMatches =
+    document.getElementById("careerMatches");
+
+  careerMatches.innerHTML = "";
+
+  const fits = [94, 89, 85, 81];
+
+  info.careers.forEach((career, index) => {
+
+    careerMatches.innerHTML += `
+
+      <div class="career-card">
+
+        <div class="career-title">
+          ${career}
+        </div>
+
+        <div class="fit">
+          ${fits[index]}% profile fit
+        </div>
+
+        <p>
+          This direction matches several of your strongest
+          characteristics from the assessment.
+        </p>
+
+      </div>
+
+    `;
+
+  });
+
+
+  document.getElementById("strengths").innerHTML =
+    info.strengths.map(x => `<p>✓ ${x}</p>`).join("");
+
+
+  document.getElementById("blindSpots").innerHTML =
+    info.blindSpots.map(x => `<p>• ${x}</p>`).join("");
+
+
+  document.getElementById("skills").innerHTML =
+    info.skills.map(x => `<p>🛠 ${x}</p>`).join("");
+
+
+  document.getElementById("projects").innerHTML =
+    info.projects.map(x => `<p>🧪 ${x}</p>`).join("");
+
+
+  document.getElementById("plan").innerHTML =
+    info.plan.map(x => `<p>📍 ${x}</p>`).join("");
+
+}
+
+
+function unlockReport() {
+
+  alert(
+    "Payment isn't connected yet. 🧭\n\n" +
+    "The ₹99 checkout will be connected " +
+    "after the Career Compass product is finished."
+  );
+
+}
+
+</script>
+
+</body>
+</html>
