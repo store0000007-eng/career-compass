@@ -795,6 +795,8 @@ const traitInfo = {
 
 let currentQuestion = 0;
 
+let userAnswers = [];
+
 let scores = {
   Analytical: 0,
   Leadership: 0,
@@ -851,6 +853,11 @@ function showQuestion() {
 
 function selectAnswer(trait) {
 
+  userAnswers.push({
+    question: questions[currentQuestion].q,
+    selectedTrait: trait
+  });
+
   scores[trait]++;
 
   currentQuestion++;
@@ -883,8 +890,9 @@ async function sendAssessmentToBackend() {
       },
 
       body: JSON.stringify({
-        answers: scores
-      })
+  answers: userAnswers,
+  scores: scores
+})
 
     });
 
