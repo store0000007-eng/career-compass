@@ -24,7 +24,7 @@
       width: 92%;
       max-width: 720px;
       margin: auto;
-      padding: 35px 0 60px;
+      padding: 30px 0 60px;
     }
 
     .logo {
@@ -63,26 +63,26 @@
       width: 8.33%;
       background: #6366f1;
       border-radius: 20px;
-      transition: width 0.3s ease;
+      transition: width .3s ease;
     }
 
     .card {
       background: white;
       border-radius: 22px;
-      padding: 32px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.07);
+      padding: 30px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.07);
     }
 
     .question-number {
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
       color: #6366f1;
       margin-bottom: 12px;
     }
 
     h1 {
       font-size: 28px;
-      line-height: 1.25;
+      line-height: 1.3;
       margin-bottom: 25px;
     }
 
@@ -92,7 +92,7 @@
       padding: 16px;
       margin-bottom: 12px;
       cursor: pointer;
-      transition: 0.2s;
+      transition: .2s;
       background: white;
       font-size: 16px;
     }
@@ -118,23 +118,20 @@
       font-weight: 700;
       cursor: pointer;
       margin-top: 10px;
-      transition: 0.2s;
-    }
-
-    .continue-btn:hover {
-      background: #374151;
     }
 
     .continue-btn:disabled {
-      opacity: 0.4;
+      opacity: .4;
       cursor: not-allowed;
     }
+
+    /* RESULTS */
 
     .results {
       display: none;
     }
 
-    .results-badge {
+    .badge {
       display: inline-block;
       background: #eef2ff;
       color: #4f46e5;
@@ -153,91 +150,158 @@
     .subtitle {
       color: #6b7280;
       line-height: 1.6;
-      margin-bottom: 25px;
+      margin-bottom: 22px;
     }
 
-    .profile-card {
+    .profile {
       background: #111827;
       color: white;
-      padding: 25px;
+      padding: 24px;
       border-radius: 18px;
       margin-bottom: 22px;
     }
 
-    .profile-card h2 {
-      font-size: 22px;
+    .profile h2 {
+      font-size: 23px;
       margin-bottom: 8px;
     }
 
-    .profile-card p {
+    .profile p {
       color: #d1d5db;
       line-height: 1.5;
     }
 
     .section-title {
       font-size: 20px;
-      margin: 25px 0 14px;
+      margin: 26px 0 14px;
     }
 
-    .career {
+    .insight {
       background: #f9fafb;
       border: 1px solid #e5e7eb;
-      padding: 17px;
       border-radius: 14px;
+      padding: 17px;
       margin-bottom: 10px;
     }
 
-    .career strong {
+    .insight strong {
       display: block;
       margin-bottom: 5px;
     }
 
-    .career span {
+    .insight span {
       color: #6b7280;
       font-size: 14px;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
-    .trait {
+    /* LOCKED REPORT */
+
+    .locked {
+      position: relative;
+      overflow: hidden;
+      margin-top: 25px;
+      border-radius: 18px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .locked-content {
+      padding: 22px;
+      filter: blur(5px);
+      user-select: none;
+      opacity: .6;
+    }
+
+    .locked-content div {
+      height: 16px;
+      background: #d1d5db;
+      border-radius: 5px;
+      margin-bottom: 12px;
+    }
+
+    .locked-content .long {
+      width: 90%;
+    }
+
+    .locked-content .medium {
+      width: 65%;
+    }
+
+    .lock-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.78);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 25px;
+    }
+
+    .lock-box h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+
+    .lock-box p {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.5;
       margin-bottom: 17px;
     }
 
-    .trait-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      margin-bottom: 7px;
+    .price {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 14px;
     }
 
-    .trait-bar {
-      height: 8px;
-      background: #e5e7eb;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .trait-fill {
-      height: 100%;
+    .unlock-btn {
+      display: inline-block;
+      border: none;
       background: #6366f1;
-      border-radius: 20px;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .unlock-btn:hover {
+      background: #4f46e5;
+    }
+
+    .features {
+      margin-top: 22px;
+    }
+
+    .feature {
+      padding: 10px 0;
+      font-size: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .feature:last-child {
+      border-bottom: none;
     }
 
     .note {
-      font-size: 13px;
       color: #6b7280;
-      margin-top: 25px;
+      font-size: 12px;
       line-height: 1.5;
       text-align: center;
+      margin-top: 22px;
     }
 
-    @media (max-width: 600px) {
+    @media(max-width:600px) {
+
       .container {
-        padding-top: 22px;
+        padding-top: 20px;
       }
 
       .card {
         padding: 22px;
-        border-radius: 18px;
       }
 
       h1 {
@@ -248,99 +312,187 @@
         font-size: 28px;
       }
 
-      .option {
-        padding: 14px;
-      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="logo">
-      Career <span>Compass</span> 🧭
-    </div>
+  <div class="logo">
+    Career <span>Compass</span> 🧭
+  </div>
 
-    <!-- ASSESSMENT -->
 
-    <div id="assessment">
+  <!-- ASSESSMENT -->
 
-      <div class="progress-area">
-        <div class="progress-text">
-          <span id="questionCount">Question 1 of 12</span>
-          <span id="percentage">8%</span>
-        </div>
+  <div id="assessment">
 
-        <div class="progress-bar">
-          <div class="progress" id="progress"></div>
-        </div>
+    <div class="progress-area">
+
+      <div class="progress-text">
+        <span id="questionCount">Question 1 of 12</span>
+        <span id="percentage">8%</span>
       </div>
 
-      <div class="card">
-
-        <div class="question-number" id="questionNumber">
-          QUESTION 01
-        </div>
-
-        <h1 id="questionText"></h1>
-
-        <div id="options"></div>
-
-        <button
-          class="continue-btn"
-          id="continueBtn"
-          disabled
-          onclick="nextQuestion()">
-          Continue →
-        </button>
-
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
       </div>
 
     </div>
 
 
-    <!-- RESULTS -->
+    <div class="card">
 
-    <div class="results" id="results">
-
-      <div class="card">
-
-        <div class="results-badge">
-          YOUR CAREER PROFILE
-        </div>
-
-        <h1 id="resultTitle"></h1>
-
-        <p class="subtitle" id="resultDescription"></p>
-
-        <div class="profile-card">
-          <h2 id="profileTitle"></h2>
-          <p id="profileText"></p>
-        </div>
-
-        <h2 class="section-title">
-          Your strongest traits
-        </h2>
-
-        <div id="traits"></div>
-
-        <h2 class="section-title">
-          Career directions to explore
-        </h2>
-
-        <div id="careers"></div>
-
-        <p class="note">
-          Your result is a starting point for exploration, not a fixed prediction of your future. 🧭
-        </p>
-
+      <div class="question-number" id="questionNumber">
+        QUESTION 01
       </div>
+
+      <h1 id="questionText"></h1>
+
+      <div id="options"></div>
+
+      <button
+        class="continue-btn"
+        id="continueBtn"
+        disabled
+        onclick="nextQuestion()">
+        Continue →
+      </button>
 
     </div>
 
   </div>
+
+
+  <!-- RESULTS -->
+
+  <div class="results" id="results">
+
+    <div class="card">
+
+      <div class="badge">
+        FREE CAREER PREVIEW
+      </div>
+
+      <h1 id="resultTitle"></h1>
+
+      <p class="subtitle" id="resultDescription"></p>
+
+
+      <!-- PROFILE -->
+
+      <div class="profile">
+
+        <h2 id="profileTitle"></h2>
+
+        <p id="profileText"></p>
+
+      </div>
+
+
+      <!-- FREE INSIGHTS -->
+
+      <h2 class="section-title">
+        Your first insights
+      </h2>
+
+      <div id="insights"></div>
+
+
+      <!-- LOCKED REPORT -->
+
+      <h2 class="section-title">
+        Your Full Career Blueprint 🔒
+      </h2>
+
+      <div class="locked">
+
+        <div class="locked-content">
+
+          <div class="long"></div>
+          <div class="medium"></div>
+          <div class="long"></div>
+          <div class="medium"></div>
+          <div class="long"></div>
+          <div class="long"></div>
+          <div class="medium"></div>
+
+        </div>
+
+
+        <div class="lock-overlay">
+
+          <div class="lock-box">
+
+            <h3>
+              Your personalized report is ready
+            </h3>
+
+            <p>
+              Unlock your complete career blueprint,
+              built from your assessment answers.
+            </p>
+
+            <div class="price">
+              ₹99
+            </div>
+
+            <button
+              class="unlock-btn"
+              onclick="unlockReport()">
+              Unlock My Career Blueprint →
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FEATURES -->
+
+      <div class="features">
+
+        <div class="feature">
+          🧭 Your top career directions
+        </div>
+
+        <div class="feature">
+          🧠 Your strongest strengths
+        </div>
+
+        <div class="feature">
+          ⚠️ Potential blind spots
+        </div>
+
+        <div class="feature">
+          🛠️ Skills worth developing
+        </div>
+
+        <div class="feature">
+          🚀 Personalized project ideas
+        </div>
+
+        <div class="feature">
+          📅 30-day career exploration plan
+        </div>
+
+      </div>
+
+
+      <p class="note">
+        Career Compass is an exploratory tool and does not
+        guarantee a specific career outcome.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
 
 
 <script>
@@ -495,6 +647,7 @@ const questions = [
 
 
 let currentQuestion = 0;
+
 let selectedTrait = null;
 
 let scores = {
@@ -538,7 +691,8 @@ function showQuestion() {
 
   document.getElementById("continueBtn").disabled = true;
 
-  q.options.forEach((option, index) => {
+
+  q.options.forEach(option => {
 
     const div = document.createElement("div");
 
@@ -590,77 +744,59 @@ function nextQuestion() {
 
 function showResults() {
 
-  document.getElementById("assessment").style.display = "none";
+  document.getElementById("assessment").style.display =
+    "none";
 
-  document.getElementById("results").style.display = "block";
+  document.getElementById("results").style.display =
+    "block";
 
-  const sortedTraits =
-    Object.entries(scores).sort((a, b) => b[1] - a[1]);
 
-  const topTrait = sortedTraits[0][0];
+  const sorted =
+    Object.entries(scores)
+      .sort((a,b) => b[1] - a[1]);
 
-  const secondTrait = sortedTraits[1][0];
+
+  const topTrait = sorted[0][0];
+
+  const secondTrait = sorted[1][0];
+
 
   const traitInfo = {
 
     Analytical: {
       title: "The Problem Solver",
-      description: "You appear to enjoy understanding complex problems, spotting patterns and finding logical solutions.",
-      careers: [
-        ["Software & AI", "Technology, programming, artificial intelligence and digital products."],
-        ["Engineering", "Designing systems, machines and solutions to real-world problems."],
-        ["Data & Research", "Finding patterns, analysing information and discovering insights."]
-      ]
+      description:
+        "You seem naturally drawn to understanding complex problems, finding patterns and figuring out how things work."
     },
 
     Leadership: {
       title: "The Leader",
-      description: "You seem comfortable taking responsibility, making decisions and bringing people together.",
-      careers: [
-        ["Business & Management", "Leading teams, organisations and business operations."],
-        ["Product Management", "Combining strategy, people and technology to build products."],
-        ["Team Leadership", "Roles where communication, responsibility and decision-making matter."]
-      ]
+      description:
+        "You seem comfortable taking responsibility, making decisions and getting people moving toward a goal."
     },
 
     Creative: {
       title: "The Creator",
-      description: "You appear to value originality, self-expression and the freedom to turn ideas into something real.",
-      careers: [
-        ["Design & Creative Technology", "UI/UX, product design, visual design and creative technology."],
-        ["Media & Content", "Video, storytelling, digital media and creative production."],
-        ["Brand & Marketing", "Creative strategy, advertising, branding and communication."]
-      ]
+      description:
+        "You appear to value originality, self-expression and turning ideas into something people can experience."
     },
 
     People: {
       title: "The People Connector",
-      description: "You seem naturally interested in people, communication and making a positive difference.",
-      careers: [
-        ["Psychology & Human Behaviour", "Understanding people, behaviour and decision-making."],
-        ["Education & Coaching", "Teaching, mentoring and helping others develop."],
-        ["Communication & Public Relations", "Building relationships and communicating ideas effectively."]
-      ]
+      description:
+        "You seem interested in people, communication and understanding what makes others think and act."
     },
 
     Entrepreneurial: {
       title: "The Opportunity Seeker",
-      description: "You appear attracted to independence, opportunities, experimentation and building things from the ground up.",
-      careers: [
-        ["Entrepreneurship", "Creating and growing your own products, services or companies."],
-        ["Business & Innovation", "Finding opportunities and developing new ideas."],
-        ["Marketing & Growth", "Helping products reach people and grow."]
-      ]
+      description:
+        "You appear attracted to independence, opportunities, experimentation and building something from the ground up."
     },
 
     Structured: {
       title: "The Organiser",
-      description: "You seem to value clarity, reliability, planning and systems that work efficiently.",
-      careers: [
-        ["Finance & Business", "Working with money, planning, analysis and business decisions."],
-        ["Operations", "Making systems, processes and organisations run smoothly."],
-        ["Project Management", "Planning, coordinating and delivering complex projects."]
-      ]
+      description:
+        "You seem to value clarity, planning, reliability and systems that make things work efficiently."
     }
 
   };
@@ -668,79 +804,80 @@ function showResults() {
 
   const info = traitInfo[topTrait];
 
+
   document.getElementById("resultTitle").textContent =
     info.title;
+
 
   document.getElementById("resultDescription").textContent =
     info.description;
 
+
   document.getElementById("profileTitle").textContent =
     topTrait + " + " + secondTrait;
+
 
   document.getElementById("profileText").textContent =
     "Your strongest signal is " +
     topTrait.toLowerCase() +
     ", supported by " +
     secondTrait.toLowerCase() +
-    ". This combination can point toward several different career directions rather than just one job.";
-
-  
-  // TRAITS
-
-  const traitsContainer =
-    document.getElementById("traits");
-
-  traitsContainer.innerHTML = "";
-
-  sortedTraits.forEach(([trait, score]) => {
-
-    const percentage =
-      Math.round((score / questions.length) * 100);
-
-    const div = document.createElement("div");
-
-    div.className = "trait";
-
-    div.innerHTML = `
-      <div class="trait-header">
-        <span>${trait}</span>
-        <strong>${percentage}%</strong>
-      </div>
-
-      <div class="trait-bar">
-        <div
-          class="trait-fill"
-          style="width:${percentage}%">
-        </div>
-      </div>
-    `;
-
-    traitsContainer.appendChild(div);
-
-  });
+    ". Your combination gives you several possible directions to explore.";
 
 
-  // CAREERS
+  const insightsContainer =
+    document.getElementById("insights");
 
-  const careersContainer =
-    document.getElementById("careers");
+  insightsContainer.innerHTML = "";
 
-  careersContainer.innerHTML = "";
 
-  info.careers.forEach(career => {
+  const insightData = [
+
+    [
+      "Your strongest signal",
+      "Your answers showed the strongest connection with " +
+      topTrait.toLowerCase() + "."
+    ],
+
+    [
+      "Your second signal",
+      secondTrait +
+      " also appeared strongly across your answers."
+    ],
+
+    [
+      "What this means",
+      "You may enjoy careers where these traits can work together."
+    ]
+
+  ];
+
+
+  insightData.forEach(item => {
 
     const div = document.createElement("div");
 
-    div.className = "career";
+    div.className = "insight";
 
     div.innerHTML = `
-      <strong>${career[0]}</strong>
-      <span>${career[1]}</span>
+      <strong>${item[0]}</strong>
+      <span>${item[1]}</span>
     `;
 
-    careersContainer.appendChild(div);
+    insightsContainer.appendChild(div);
 
   });
+
+}
+
+
+function unlockReport() {
+
+  alert(
+    "Payment isn't connected yet. 🧭\n\n" +
+    "Next we'll connect the ₹199 payment button " +
+    "to the actual checkout system."
+  );
 
 }
 
