@@ -901,12 +901,59 @@ async function sendAssessmentToBackend() {
     console.log("Career Compass backend:", data);
 
 if (data.success) {
-  alert(
-    "Your personalized career profile is ready! 🧭\n\n" +
-    "Strongest trait: " + data.profile.strongestTrait + "\n\n" +
-    "Top career matches:\n" +
-    data.careerMatches.join("\n")
-  );
+
+  const resultBox = document.createElement("div");
+
+  resultBox.innerHTML = `
+    <div style="
+      margin-top: 30px;
+      padding: 24px;
+      border-radius: 20px;
+      background: #111827;
+      color: white;
+      text-align: left;
+    ">
+
+      <div style="
+        font-size: 13px;
+        letter-spacing: 1px;
+        opacity: 0.7;
+        margin-bottom: 8px;
+      ">
+        YOUR PERSONALIZED PROFILE
+      </div>
+
+      <h2 style="margin: 0 0 12px;">
+        ${data.profile.strongestTrait}
+      </h2>
+
+      <p style="opacity: 0.8; margin-bottom: 20px;">
+        Based on your assessment, this is your strongest career trait.
+      </p>
+
+      <h3 style="margin-bottom: 10px;">
+        Top Career Matches
+      </h3>
+
+      <div>
+        ${data.careerMatches.map((career, index) => `
+          <div style="
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+          ">
+            ${index + 1}. ${career}
+          </div>
+        `).join("")}
+      </div>
+
+    </div>
+  `;
+
+  const resultsContainer =
+    document.querySelector(".container") ||
+    document.body;
+
+  resultsContainer.appendChild(resultBox);
 }
 
   } catch (error) {
