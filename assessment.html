@@ -861,7 +861,40 @@ function selectAnswer(trait) {
 
   } else {
 
-  showResults();
+    showResults();
+
+    sendAssessmentToBackend();
+
+  }
+
+}
+
+
+async function sendAssessmentToBackend() {
+
+  try {
+
+    const response = await fetch("/api/generate-report", {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        answers: scores
+      })
+
+    });
+
+    const data = await response.json();
+
+    console.log("Career Compass backend:", data);
+
+  } catch (error) {
+
+    console.log("Backend connection error:", error);
 
   }
 
