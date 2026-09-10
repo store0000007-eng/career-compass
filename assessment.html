@@ -900,6 +900,15 @@ async function sendAssessmentToBackend() {
 
     console.log("Career Compass backend:", data);
 
+if (data.success) {
+  alert(
+    "Your personalized career profile is ready! 🧭\n\n" +
+    "Strongest trait: " + data.profile.strongestTrait + "\n\n" +
+    "Top career matches:\n" +
+    data.careerMatches.join("\n")
+  );
+}
+
   } catch (error) {
 
     console.log("Backend connection error:", error);
