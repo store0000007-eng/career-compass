@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Career Compass</title>
-
-  <style>
+  <title>Career Compass</title>  <style>
     * {
       box-sizing: border-box;
       margin: 0;
@@ -56,54 +53,36 @@
       margin-bottom: 30px;
     }
 
-    button {
-      border: none;
+    .start-button {
+      display: inline-block;
+      text-decoration: none;
       background: #111827;
       color: white;
       padding: 15px 28px;
       border-radius: 12px;
       font-size: 16px;
       font-weight: bold;
-      cursor: pointer;
     }
 
-    button:hover {
+    .start-button:hover {
       opacity: 0.9;
     }
+  </style></head><body>  <div class="container"><div class="badge">
+  AI-Powered Career Assessment
+</div>
 
-    #message {
-      margin-top: 25px;
-      font-size: 16px;
-      color: #4f46e5;
-    }
-  </style>
-</head>
+<h1>
+  Find Your Career Direction.
+</h1>
 
-<body>
+<p>
+  Discover careers that match your interests, strengths,
+  personality and goals with a personalized AI assessment.
+</p>
 
-  <div class="container">
-    <div class="badge">AI-Powered Career Assessment</div>
+<a href="assessment.html" class="start-button">
+  Start Your Assessment →
+</a>
 
-    <h1>Find Your Career Direction.</h1>
-
-    <p>
-      Discover careers that match your interests, strengths,
-      personality and goals with a personalized AI assessment.
-    </p>
-
-    <button onclick="startAssessment()">
-      Start Your Assessment →
-    </button>
-
-    <div id="message"></div>
-  </div>
-
-  <script>
-    function startAssessment() {
-      document.getElementById("message").textContent =
-        "Your assessment is coming next. 🚀";
-    }
-  </script>
-
-</body>
+  </div></body>
 </html>
