@@ -18,10 +18,11 @@ export default async function handler(req, res) {
     // We are keeping the API key out of the website for security.
 
     return res.status(200).json({
-      success: true,
-      message: "Career assessment received successfully.",
-      answerCount: answers.length
-    });
+  success: true,
+  message: "Career assessment received successfully.",
+  answerCount: answers.length,
+  scores: scores
+});
 
   } catch (error) {
 
