@@ -7,6 +7,7 @@
   <title>Career Compass — Assessment</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -38,6 +39,8 @@
       color: #6366f1;
     }
 
+    /* PROGRESS */
+
     .progress-area {
       margin-bottom: 30px;
     }
@@ -66,6 +69,8 @@
       transition: width .3s ease;
     }
 
+    /* CARD */
+
     .card {
       background: white;
       border-radius: 22px;
@@ -85,6 +90,8 @@
       line-height: 1.3;
       margin-bottom: 25px;
     }
+
+    /* OPTIONS */
 
     .option {
       border: 2px solid #e5e7eb;
@@ -153,12 +160,23 @@
       margin-bottom: 22px;
     }
 
+    /* PROFILE */
+
     .profile {
       background: #111827;
       color: white;
       padding: 24px;
       border-radius: 18px;
       margin-bottom: 22px;
+    }
+
+    .profile-label {
+      font-size: 12px;
+      color: #a5b4fc;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
     }
 
     .profile h2 {
@@ -170,6 +188,8 @@
       color: #d1d5db;
       line-height: 1.5;
     }
+
+    /* INSIGHTS */
 
     .section-title {
       font-size: 20px;
@@ -203,39 +223,61 @@
       margin-top: 25px;
       border-radius: 18px;
       border: 1px solid #e5e7eb;
+      min-height: 430px;
     }
 
     .locked-content {
       padding: 22px;
       filter: blur(5px);
       user-select: none;
-      opacity: .6;
+      opacity: .65;
     }
 
-    .locked-content div {
-      height: 16px;
+    .locked-content h3 {
+      margin-bottom: 15px;
+    }
+
+    .fake-section {
+      margin-bottom: 25px;
+    }
+
+    .fake-line {
+      height: 15px;
       background: #d1d5db;
       border-radius: 5px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
-    .locked-content .long {
+    .long {
       width: 90%;
     }
 
-    .locked-content .medium {
+    .medium {
       width: 65%;
+    }
+
+    .short {
+      width: 40%;
     }
 
     .lock-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(255,255,255,.78);
+      background: rgba(255,255,255,.84);
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 25px;
+    }
+
+    .lock-box {
+      max-width: 420px;
+    }
+
+    .lock-icon {
+      font-size: 35px;
+      margin-bottom: 10px;
     }
 
     .lock-box h3 {
@@ -251,7 +293,7 @@
     }
 
     .price {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 800;
       margin-bottom: 14px;
     }
@@ -272,12 +314,14 @@
       background: #4f46e5;
     }
 
+    /* FEATURES */
+
     .features {
       margin-top: 22px;
     }
 
     .feature {
-      padding: 10px 0;
+      padding: 12px 0;
       font-size: 15px;
       border-bottom: 1px solid #eee;
     }
@@ -286,12 +330,110 @@
       border-bottom: none;
     }
 
+    /* NOTE */
+
     .note {
       color: #6b7280;
       font-size: 12px;
       line-height: 1.5;
       text-align: center;
       margin-top: 22px;
+    }
+
+    /* FULL BLUEPRINT */
+
+    .blueprint {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .blueprint-header {
+      background: #111827;
+      color: white;
+      padding: 25px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+    }
+
+    .blueprint-header small {
+      color: #a5b4fc;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .blueprint-header h2 {
+      font-size: 26px;
+      margin: 8px 0;
+    }
+
+    .blueprint-header p {
+      color: #d1d5db;
+      line-height: 1.5;
+    }
+
+    .blueprint-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 15px;
+    }
+
+    .blueprint-card h3 {
+      font-size: 19px;
+      margin-bottom: 12px;
+    }
+
+    .blueprint-card p {
+      color: #6b7280;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .career-item {
+      background: #f9fafb;
+      border-radius: 13px;
+      padding: 15px;
+      margin-bottom: 10px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .career-item strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .career-item span {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .skill {
+      display: inline-block;
+      background: #eef2ff;
+      color: #4f46e5;
+      padding: 8px 11px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin: 4px 3px;
+    }
+
+    .day {
+      border-left: 3px solid #6366f1;
+      padding: 10px 0 10px 15px;
+      margin-bottom: 14px;
+    }
+
+    .day strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .day span {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     @media(max-width:600px) {
@@ -313,6 +455,7 @@
       }
 
     }
+
   </style>
 </head>
 
@@ -325,7 +468,9 @@
   </div>
 
 
+  <!-- ========================= -->
   <!-- ASSESSMENT -->
+  <!-- ========================= -->
 
   <div id="assessment">
 
@@ -366,7 +511,9 @@
   </div>
 
 
+  <!-- ========================= -->
   <!-- RESULTS -->
+  <!-- ========================= -->
 
   <div class="results" id="results">
 
@@ -384,6 +531,10 @@
       <!-- PROFILE -->
 
       <div class="profile">
+
+        <div class="profile-label">
+          Your career profile
+        </div>
 
         <h2 id="profileTitle"></h2>
 
@@ -411,13 +562,34 @@
 
         <div class="locked-content">
 
-          <div class="long"></div>
-          <div class="medium"></div>
-          <div class="long"></div>
-          <div class="medium"></div>
-          <div class="long"></div>
-          <div class="long"></div>
-          <div class="medium"></div>
+          <div class="fake-section">
+
+            <h3>Top Career Directions</h3>
+
+            <div class="fake-line long"></div>
+            <div class="fake-line medium"></div>
+            <div class="fake-line long"></div>
+
+          </div>
+
+          <div class="fake-section">
+
+            <h3>Your Strengths</h3>
+
+            <div class="fake-line long"></div>
+            <div class="fake-line short"></div>
+            <div class="fake-line medium"></div>
+
+          </div>
+
+          <div class="fake-section">
+
+            <h3>Your 30-Day Plan</h3>
+
+            <div class="fake-line long"></div>
+            <div class="fake-line medium"></div>
+
+          </div>
 
         </div>
 
@@ -426,13 +598,19 @@
 
           <div class="lock-box">
 
+            <div class="lock-icon">
+              🔒
+            </div>
+
             <h3>
-              Your personalized report is ready
+              Your personalized blueprint is ready
             </h3>
 
             <p>
-              Unlock your complete career blueprint,
-              built from your assessment answers.
+              Your answers have been analysed.
+              Unlock the complete report to see your
+              career directions, strengths, skills,
+              projects and 30-day action plan.
             </p>
 
             <div class="price">
@@ -461,7 +639,7 @@
         </div>
 
         <div class="feature">
-          🧠 Your strongest strengths
+          💪 Your strongest strengths
         </div>
 
         <div class="feature">
@@ -483,10 +661,108 @@
       </div>
 
 
-      <p class="note">
-        Career Compass is an exploratory tool and does not
-        guarantee a specific career outcome.
-      </p>
+      <!-- FULL BLUEPRINT -->
+      <!-- Hidden for now. Payment will unlock this later. -->
+
+      <div class="blueprint" id="blueprint">
+
+        <div class="blueprint-header">
+
+          <small>
+            CAREER COMPASS BLUEPRINT
+          </small>
+
+          <h2 id="blueprintTitle"></h2>
+
+          <p id="blueprintIntro"></p>
+
+        </div>
+
+
+        <!-- CAREER DIRECTIONS -->
+
+        <div class="blueprint-card">
+
+          <h3>
+            🧭 Career Directions
+          </h3>
+
+          <div id="careerDirections"></div>
+
+        </div>
+
+
+        <!-- STRENGTHS -->
+
+        <div class="blueprint-card">
+
+          <h3>
+            💪 Your Strongest Strengths
+          </h3>
+
+          <div id="strengths"></div>
+
+        </div>
+
+
+        <!-- BLIND SPOTS -->
+
+        <div class="blueprint-card">
+
+          <h3>
+            ⚠️ Potential Blind Spots
+          </h3>
+
+          <div id="blindSpots"></div>
+
+        </div>
+
+
+        <!-- SKILLS -->
+
+        <div class="blueprint-card">
+
+          <h3>
+            🛠️ Skills To Develop
+          </h3>
+
+          <div id="skills"></div>
+
+        </div>
+
+
+        <!-- PROJECTS -->
+
+        <div class="blueprint-card">
+
+          <h3>
+            🚀 Projects To Try
+          </h3>
+
+          <div id="projects"></div>
+
+        </div>
+
+
+        <!-- 30 DAY PLAN -->
+
+        <div class="blueprint-card">
+
+          <h3>
+            📅 Your 30-Day Exploration Plan
+          </h3>
+
+          <div id="plan"></div>
+
+        </div>
+
+
+        <p class="note">
+          Career Compass is an exploratory tool and does not
+          guarantee a specific career outcome.
+        </p>
+
+      </div>
 
     </div>
 
@@ -496,6 +772,11 @@
 
 
 <script>
+
+
+/* ========================================= */
+/* QUESTIONS */
+/* ========================================= */
 
 const questions = [
 
@@ -646,6 +927,10 @@ const questions = [
 ];
 
 
+/* ========================================= */
+/* STATE */
+/* ========================================= */
+
 let currentQuestion = 0;
 
 let selectedTrait = null;
@@ -660,231 +945,22 @@ let scores = {
 };
 
 
-function showQuestion() {
+/* ========================================= */
+/* TRAIT INFORMATION */
+/* ========================================= */
 
-  const q = questions[currentQuestion];
+const traitInfo = {
 
-  document.getElementById("questionNumber").textContent =
-    "QUESTION " + String(currentQuestion + 1).padStart(2, "0");
+  Analytical: {
 
-  document.getElementById("questionText").textContent =
-    q.question;
+    title: "The Problem Solver",
 
-  document.getElementById("questionCount").textContent =
-    "Question " + (currentQuestion + 1) + " of " + questions.length;
+    description:
+      "You seem naturally drawn to understanding complex problems, finding patterns and figuring out how things work.",
 
-  const percent =
-    Math.round(((currentQuestion + 1) / questions.length) * 100);
+    intro:
+      "Your answers suggest that curiosity, logic and problem-solving are important parts of how you approach challenges.",
 
-  document.getElementById("percentage").textContent =
-    percent + "%";
-
-  document.getElementById("progress").style.width =
-    percent + "%";
-
-  const optionsContainer =
-    document.getElementById("options");
-
-  optionsContainer.innerHTML = "";
-
-  selectedTrait = null;
-
-  document.getElementById("continueBtn").disabled = true;
-
-
-  q.options.forEach(option => {
-
-    const div = document.createElement("div");
-
-    div.className = "option";
-
-    div.textContent = option[0];
-
-    div.onclick = function() {
-
-      document.querySelectorAll(".option").forEach(item => {
-        item.classList.remove("selected");
-      });
-
-      div.classList.add("selected");
-
-      selectedTrait = option[1];
-
-      document.getElementById("continueBtn").disabled = false;
-
-    };
-
-    optionsContainer.appendChild(div);
-
-  });
-
-}
-
-
-function nextQuestion() {
-
-  if (!selectedTrait) return;
-
-  scores[selectedTrait]++;
-
-  currentQuestion++;
-
-  if (currentQuestion < questions.length) {
-
-    showQuestion();
-
-  } else {
-
-    showResults();
-
-  }
-
-}
-
-
-function showResults() {
-
-  document.getElementById("assessment").style.display =
-    "none";
-
-  document.getElementById("results").style.display =
-    "block";
-
-
-  const sorted =
-    Object.entries(scores)
-      .sort((a,b) => b[1] - a[1]);
-
-
-  const topTrait = sorted[0][0];
-
-  const secondTrait = sorted[1][0];
-
-
-  const traitInfo = {
-
-    Analytical: {
-      title: "The Problem Solver",
-      description:
-        "You seem naturally drawn to understanding complex problems, finding patterns and figuring out how things work."
-    },
-
-    Leadership: {
-      title: "The Leader",
-      description:
-        "You seem comfortable taking responsibility, making decisions and getting people moving toward a goal."
-    },
-
-    Creative: {
-      title: "The Creator",
-      description:
-        "You appear to value originality, self-expression and turning ideas into something people can experience."
-    },
-
-    People: {
-      title: "The People Connector",
-      description:
-        "You seem interested in people, communication and understanding what makes others think and act."
-    },
-
-    Entrepreneurial: {
-      title: "The Opportunity Seeker",
-      description:
-        "You appear attracted to independence, opportunities, experimentation and building something from the ground up."
-    },
-
-    Structured: {
-      title: "The Organiser",
-      description:
-        "You seem to value clarity, planning, reliability and systems that make things work efficiently."
-    }
-
-  };
-
-
-  const info = traitInfo[topTrait];
-
-
-  document.getElementById("resultTitle").textContent =
-    info.title;
-
-
-  document.getElementById("resultDescription").textContent =
-    info.description;
-
-
-  document.getElementById("profileTitle").textContent =
-    topTrait + " + " + secondTrait;
-
-
-  document.getElementById("profileText").textContent =
-    "Your strongest signal is " +
-    topTrait.toLowerCase() +
-    ", supported by " +
-    secondTrait.toLowerCase() +
-    ". Your combination gives you several possible directions to explore.";
-
-
-  const insightsContainer =
-    document.getElementById("insights");
-
-  insightsContainer.innerHTML = "";
-
-
-  const insightData = [
-
-    [
-      "Your strongest signal",
-      "Your answers showed the strongest connection with " +
-      topTrait.toLowerCase() + "."
-    ],
-
-    [
-      "Your second signal",
-      secondTrait +
-      " also appeared strongly across your answers."
-    ],
-
-    [
-      "What this means",
-      "You may enjoy careers where these traits can work together."
-    ]
-
-  ];
-
-
-  insightData.forEach(item => {
-
-    const div = document.createElement("div");
-
-    div.className = "insight";
-
-    div.innerHTML = `
-      <strong>${item[0]}</strong>
-      <span>${item[1]}</span>
-    `;
-
-    insightsContainer.appendChild(div);
-
-  });
-
-}
-
-
-function unlockReport() {
-
-  alert(
-    "Payment isn't connected yet. 🧭\n\n" +
-    "Next we'll connect the ₹199 payment button " +
-    "to the actual checkout system."
-  );
-
-}
-
-
-showQuestion();
-
-</script>
-
-</body>
-</html>
+    careers: [
+      ["Software Developer", "Good fit if you enjoy building systems and solving technical problems."],
+      ["Engin
