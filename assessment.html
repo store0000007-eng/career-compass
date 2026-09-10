@@ -1,77 +1,162 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Career Compass — Assessment</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+  <title>Career Compass Assessment</title>  <style>
     body {
+      margin: 0;
+      padding: 30px 20px;
       font-family: Arial, sans-serif;
       background: #f5f7fb;
       color: #111827;
-      min-height: 100vh;
-      padding: 25px;
     }
 
-    .container {
-      max-width: 700px;
+    .box {
+      max-width: 650px;
       margin: 40px auto;
       background: white;
-      border-radius: 24px;
       padding: 35px;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.08);
-    }
-
-    .top {
-      margin-bottom: 30px;
-    }
-
-    .label {
-      color: #4f46e5;
-      font-weight: bold;
-      font-size: 14px;
-      margin-bottom: 10px;
+      border-radius: 20px;
+      text-align: center;
     }
 
     h1 {
-      font-size: 32px;
       margin-bottom: 10px;
     }
 
-    .progress {
-      height: 8px;
-      background: #e5e7eb;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 20px;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 20%;
-      background: #4f46e5;
-      transition: width 0.3s;
-    }
-
-    .question {
-      font-size: 23px;
+    #question {
+      font-size: 22px;
       font-weight: bold;
-      line-height: 1.4;
-      margin-bottom: 25px;
-    }
-
-    .options {
-      display: grid;
-      gap: 12px;
+      margin: 30px 0 20px;
     }
 
     .option {
-      padding: 17px;
-      border
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 15px;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    .option:active {
+      background: #eeeeff;
+    }
+
+    #next {
+      width: 100%;
+      padding: 15px;
+      margin-top: 20px;
+      border: 0;
+      border-radius: 12px;
+      background: #111827;
+      color: white;
+      font-size: 16px;
+    }
+  </style></head><body><div class="box">  <h1>Career Compass 🧭</h1>  <p>Let's discover what career direction fits you.</p>  <div id="question"></div>  <div id="options"></div>  <button id="next" onclick="nextQuestion()">
+    Continue →
+  </button></div><script>
+
+const questions = [
+  {
+    q: "What do you enjoy most?",
+    a: [
+      "Solving problems",
+      "Leading people",
+      "Creating things",
+      "Helping people"
+    ]
+  },
+  {
+    q: "Which sounds most interesting?",
+    a: [
+      "Technology",
+      "Business",
+      "Design and media",
+      "Psychology and people"
+    ]
+  },
+  {
+    q: "How do you approach difficult problems?",
+    a: [
+      "I analyze them carefully",
+      "I take charge",
+      "I find creative solutions",
+      "I ask others for perspectives"
+    ]
+  },
+  {
+    q: "What motivates you?",
+    a: [
+      "Learning new things",
+      "Achieving big goals",
+      "Expressing myself",
+      "Making a difference"
+    ]
+  },
+  {
+    q: "Which describes you best?",
+    a: [
+      "Analytical",
+      "Ambitious",
+      "Creative",
+      "Empathetic"
+    ]
+  }
+];
+
+let current = 0;
+
+function showQuestion() {
+
+  document.getElementById("question").textContent =
+    (current + 1) + ". " + questions[current].q;
+
+  const options = document.getElementById("options");
+
+  options.innerHTML = "";
+
+  questions[current].a.forEach(function(answer) {
+
+    const button = document.createElement("button");
+
+    button.className = "option";
+    button.textContent = answer;
+
+    button.onclick = function() {
+
+      document.querySelectorAll(".option").forEach(function(b) {
+        b.style.background = "white";
+      });
+
+      button.style.background = "#eeeeff";
+    };
+
+    options.appendChild(button);
+
+  });
+}
+
+function nextQuestion() {
+
+  if (current < questions.length - 1) {
+
+    current++;
+    showQuestion();
+
+  } else {
+
+    document.querySelector(".box").innerHTML =
+      "<h1>Assessment Complete 🎯</h1>" +
+      "<p>Your personalized career report will be generated here.</p>";
+
+  }
+}
+
+showQuestion();
+
+</script></body>
+</html>
