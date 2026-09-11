@@ -194,6 +194,1030 @@ p {
 
 <div class="container">
 
+<!-- ==================== ASSESSMENT ==================== -->
+
+<div id="assessment" class="card">
+
+<span class="badge">AI Career Assessment</span>
+
+<div class="question-number" id="questionNumber"></div>
+
+<div class="progress-container">
+  <div class="progress" id="progress"></div>
+</div>
+
+<h2 id="question"></h2>
+
+<div id="options"></div>
+
+</div>
+
+
+<!-- ==================== RESULTS ==================== -->
+
+<div id="results" class="hidden">
+
+<div class="card">
+
+<span class="badge">FREE CAREER PREVIEW</span>
+
+<h1 id="profileTitle"></h1>
+
+<p id="profileDescription"></p>
+
+<div class="trait-box">
+
+<h3>Your strongest traits</h3>
+
+<div id="traitScores"></div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>🎯 Your Potential Career Matches</h2>
+
+<p>
+Based on your assessment profile, these career directions may fit your
+natural strengths and preferences.
+</p>
+
+<div id="careerPreview"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>🔎 3 Free Insights</h2>
+
+<div class="trait-box">
+<strong>💪 Natural advantage</strong>
+<p id="insightStrength"></p>
+</div>
+
+<div class="trait-box">
+<strong>🧠 How you tend to work</strong>
+<p id="insightWork"></p>
+</div>
+
+<div class="trait-box">
+<strong>⚡ Growth opportunity</strong>
+<p id="insightGrowth"></p>
+</div>
+
+</div>
+
+
+<!-- ==================== LOCKED REPORT ==================== -->
+
+<div class="card locked">
+
+<h2>🔒 Your Full Career Blueprint</h2>
+
+<div class="blur">
+
+<h3>🚀 Your Best Career Directions</h3>
+<p>Personalized career recommendations based on your unique profile.</p>
+
+<h3>💪 Your Strongest Strengths</h3>
+<p>Detailed strengths and how they can help you professionally.</p>
+
+<h3>⚠️ Potential Blind Spots</h3>
+<p>Areas that could hold you back and how to improve them.</p>
+
+<h3>🛠 Skills To Develop</h3>
+<p>A personalized list of useful skills to build.</p>
+
+<h3>🧪 Projects To Try</h3>
+<p>Real-world projects designed to help you test career directions.</p>
+
+<h3>📅 30-Day Exploration Plan</h3>
+<p>A step-by-step plan for exploring your career options.</p>
+
+</div>
+
+<div class="unlock-box">
+
+<h2>Unlock Your Full Blueprint</h2>
+
+<p>
+Get your personalized career roadmap, career matches,
+strengths, blind spots, skills and action plan.
+</p>
+
+<div class="price">₹99</div>
+
+<button class="unlock-button" onclick="unlockReport()">
+Unlock My Career Blueprint →
+</button>
+
+<p class="small">
+One-time purchase • Personalized report
+</p>
+
+</div>
+
+</div>
+
+
+<!-- ==================== FULL BLUEPRINT ==================== -->
+
+<div id="blueprint" class="card hidden">
+
+<span class="badge">YOUR PERSONAL CAREER BLUEPRINT</span>
+
+<h1 id="blueprintTitle"></h1>
+
+<p id="blueprintIntro"></p>
+
+<h2>🎯 Career Fit Scores</h2>
+<div id="careerMatches"></div>
+
+<h2>💪 Your Strongest Strengths</h2>
+<div id="strengths"></div>
+
+<h2>⚠️ Potential Blind Spots</h2>
+<div id="blindSpots"></div>
+
+<h2>🛠 Skills To Develop</h2>
+<div id="skills"></div>
+
+<h2>🧪 Projects To Try</h2>
+<div id="projects"></div>
+
+<h2>📅 Your 30-Day Exploration Plan</h2>
+<div id="plan"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   QUESTIONS
+========================================================= */
+
+const questions = [
+
+{
+q: "When you face a difficult problem, what do you naturally do?",
+options: [
+["Break it down and analyze it", "Analytical"],
+["Take charge and find a solution", "Leadership"],
+["Think of an unusual approach", "Creative"],
+["Ask people for different perspectives", "People"],
+["Look for an opportunity in it", "Entrepreneurial"],
+["Create a clear step-by-step plan", "Structured"]
+]
+},
+
+{
+q: "Which activity sounds most interesting to you?",
+options: [
+["Solving puzzles or analyzing data", "Analytical"],
+["Leading a team or event", "Leadership"],
+["Designing or creating something", "Creative"],
+["Helping or communicating with people", "People"],
+["Starting a small business or project", "Entrepreneurial"],
+["Organizing tasks and systems", "Structured"]
+]
+},
+
+{
+q: "What type of success feels most satisfying?",
+options: [
+["Solving something others couldn't", "Analytical"],
+["Getting people to achieve a goal", "Leadership"],
+["Creating something original", "Creative"],
+["Making a positive difference to someone", "People"],
+["Building something that earns money", "Entrepreneurial"],
+["Creating something efficient and reliable", "Structured"]
+]
+},
+
+{
+q: "In a group project, which role would you probably take?",
+options: [
+["Researcher", "Analytical"],
+["Leader", "Leadership"],
+["Idea generator", "Creative"],
+["Communicator", "People"],
+["Business/strategy person", "Entrepreneurial"],
+["Organizer", "Structured"]
+]
+},
+
+{
+q: "Which environment would you enjoy most?",
+options: [
+["Technology or research", "Analytical"],
+["Fast-moving team environment", "Leadership"],
+["Creative studio", "Creative"],
+["People-focused environment", "People"],
+["Startup or business environment", "Entrepreneurial"],
+["Organized professional environment", "Structured"]
+]
+},
+
+{
+q: "When learning something new, what do you prefer?",
+options: [
+["Understanding how it works", "Analytical"],
+["Learning by taking responsibility", "Leadership"],
+["Experimenting with it", "Creative"],
+["Discussing it with others", "People"],
+["Finding how it could be useful", "Entrepreneurial"],
+["Following a clear learning path", "Structured"]
+]
+},
+
+{
+q: "What would frustrate you the most?",
+options: [
+["A problem that makes no logical sense", "Analytical"],
+["Not being able to make decisions", "Leadership"],
+["Having no freedom to create", "Creative"],
+["Working with people who don't communicate", "People"],
+["Having no opportunity to grow", "Entrepreneurial"],
+["Constantly changing plans", "Structured"]
+]
+},
+
+{
+q: "Which skill would you most like to become excellent at?",
+options: [
+["Critical thinking", "Analytical"],
+["Leadership", "Leadership"],
+["Creativity", "Creative"],
+["Communication", "People"],
+["Business", "Entrepreneurial"],
+["Organization", "Structured"]
+]
+},
+
+{
+q: "If you had a free weekend to build something, what would you choose?",
+options: [
+["An app or technical project", "Analytical"],
+["A team challenge", "Leadership"],
+["A creative design/project", "Creative"],
+["A community project", "People"],
+["A small online business", "Entrepreneurial"],
+["A useful productivity system", "Structured"]
+]
+},
+
+{
+q: "Which statement sounds most like you?",
+options: [
+["I like understanding things deeply.", "Analytical"],
+["I naturally take responsibility.", "Leadership"],
+["I get lots of ideas.", "Creative"],
+["I understand people well.", "People"],
+["I notice opportunities.", "Entrepreneurial"],
+["I like things organized.", "Structured"]
+]
+},
+
+{
+q: "What motivates you most?",
+options: [
+["Intellectual challenge", "Analytical"],
+["Achievement and influence", "Leadership"],
+["Freedom and originality", "Creative"],
+["Connection and impact", "People"],
+["Growth and independence", "Entrepreneurial"],
+["Progress and stability", "Structured"]
+]
+},
+
+{
+q: "If you could instantly improve one ability, which would you choose?",
+options: [
+["Problem solving", "Analytical"],
+["Decision making", "Leadership"],
+["Creative thinking", "Creative"],
+["Communication", "People"],
+["Business thinking", "Entrepreneurial"],
+["Planning", "Structured"]
+]
+}
+
+];
+
+
+/* =========================================================
+   TRAIT INFORMATION
+========================================================= */
+
+const traitInfo = {
+
+Analytical: {
+title: "The Analytical Thinker",
+description:
+"You naturally enjoy understanding problems, spotting patterns and figuring out how things work.",
+careers: [
+"Software Developer",
+"Data Analyst",
+"Engineer",
+"Cybersecurity Specialist"
+],
+strengths: [
+"Logical problem solving",
+"Deep analysis",
+"Pattern recognition",
+"Learning complex concepts"
+],
+blindSpots: [
+"Overthinking decisions",
+"Spending too long perfecting solutions",
+"Ignoring the people side of a problem"
+],
+skills: [
+"Programming",
+"Data analysis",
+"Communication",
+"Decision making",
+"Project execution"
+],
+projects: [
+"Build a small website or app",
+"Analyze a real-world dataset",
+"Learn the basics of Python"
+],
+plan: [
+"Week 1 — Explore two analytical careers",
+"Week 2 — Complete a beginner technical project",
+"Week 3 — Talk to someone in the field",
+"Week 4 — Choose a direction to explore deeper"
+]
+},
+
+Leadership: {
+title: "The Natural Leader",
+description:
+"You tend to take responsibility, make decisions and move people toward a goal.",
+careers: [
+"Business Manager",
+"Project Manager",
+"Entrepreneur",
+"Marketing Manager"
+],
+strengths: [
+"Decision making",
+"Taking initiative",
+"Motivating others",
+"Handling responsibility"
+],
+blindSpots: [
+"Trying to control everything",
+"Moving too quickly",
+"Not always listening enough"
+],
+skills: [
+"Communication",
+"Negotiation",
+"Project management",
+"Public speaking",
+"Strategic thinking"
+],
+projects: [
+"Lead a small team project",
+"Organize an event or activity",
+"Build a small business experiment"
+],
+plan: [
+"Week 1 — Identify three leadership-heavy careers",
+"Week 2 — Lead a small project",
+"Week 3 — Practice communication and delegation",
+"Week 4 — Reflect on what you learned"
+]
+},
+
+Creative: {
+title: "The Creative Builder",
+description:
+"You enjoy ideas, originality and creating things that did not exist before.",
+careers: [
+"Product Designer",
+"UX/UI Designer",
+"Content Creator",
+"Creative Director"
+],
+strengths: [
+"Idea generation",
+"Original thinking",
+"Visual thinking",
+"Experimentation"
+],
+blindSpots: [
+"Losing interest during repetitive work",
+"Starting too many ideas",
+"Difficulty finishing projects"
+],
+skills: [
+"Design",
+"Storytelling",
+"Video editing",
+"User experience",
+"Presentation"
+],
+projects: [
+"Design a mobile app concept",
+"Create a brand identity",
+"Make a short creative portfolio"
+],
+plan: [
+"Week 1 — Explore creative career paths",
+"Week 2 — Complete one design project",
+"Week 3 — Build a small portfolio",
+"Week 4 — Get feedback and improve it"
+]
+},
+
+People: {
+title: "The People Connector",
+description:
+"You naturally value communication, relationships and helping people.",
+careers: [
+"Teacher",
+"Psychologist",
+"Human Resources Specialist",
+"Sales Professional"
+],
+strengths: [
+"Communication",
+"Empathy",
+"Relationship building",
+"Understanding different perspectives"
+],
+blindSpots: [
+"Taking criticism personally",
+"Saying yes too often",
+"Avoiding difficult conversations"
+],
+skills: [
+"Public speaking",
+"Negotiation",
+"Leadership",
+"Active listening",
+"Networking"
+],
+projects: [
+"Volunteer for a community project",
+"Interview people about their careers",
+"Practice public speaking"
+],
+plan: [
+"Week 1 — Explore people-focused careers",
+"Week 2 — Practice communication",
+"Week 3 — Interview someone in the field",
+"Week 4 — Identify the type of work you enjoy"
+]
+},
+
+Entrepreneurial: {
+title: "The Opportunity Seeker",
+description:
+"You tend to notice opportunities, think independently and enjoy building things.",
+careers: [
+"Entrepreneur",
+"Startup Founder",
+"Product Manager",
+"Business Development"
+],
+strengths: [
+"Opportunity spotting",
+"Initiative",
+"Risk awareness",
+"Independent thinking"
+],
+blindSpots: [
+"Chasing too many opportunities",
+"Underestimating execution",
+"Taking unnecessary risks"
+],
+skills: [
+"Sales",
+"Marketing",
+"Finance basics",
+"Product development",
+"Negotiation"
+],
+projects: [
+"Start a tiny online business experiment",
+"Create and test a product idea",
+"Build a simple landing page"
+],
+plan: [
+"Week 1 — Identify three business problems",
+"Week 2 — Create a simple solution",
+"Week 3 — Get feedback",
+"Week 4 — Improve the idea"
+]
+},
+
+Structured: {
+title: "The Organized Strategist",
+description:
+"You value organization, reliability and clear systems.",
+careers: [
+"Financial Analyst",
+"Operations Manager",
+"Accountant",
+"Project Coordinator"
+],
+strengths: [
+"Organization",
+"Consistency",
+"Planning",
+"Attention to detail"
+],
+blindSpots: [
+"Discomfort with uncertainty",
+"Over-planning",
+"Difficulty adapting to sudden changes"
+],
+skills: [
+"Project management",
+"Financial literacy",
+"Excel",
+"Time management",
+"Process improvement"
+],
+projects: [
+"Build a personal productivity system",
+"Create a simple budget tracker",
+"Organize a small project"
+],
+plan: [
+"Week 1 — Explore structured career paths",
+"Week 2 — Build an organization system",
+"Week 3 — Complete a small project",
+"Week 4 — Review what you enjoyed"
+]
+}
+
+};
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentQuestion = 0;
+
+let userAnswers = [];
+
+let scores = {
+Analytical: 0,
+Leadership: 0,
+Creative: 0,
+People: 0,
+Entrepreneurial: 0,
+Structured: 0
+};
+
+
+/* =========================================================
+   SHOW QUESTION
+========================================================= */
+
+function showQuestion() {
+
+const q = questions[currentQuestion];
+
+document.getElementById("questionNumber").textContent =
+`Question ${currentQuestion + 1} of ${questions.length}`;
+
+document.getElementById("question").textContent = q.q;
+
+document.getElementById("progress").style.width =
+`${((currentQuestion + 1) / questions.length) * 100}%`;
+
+const options = document.getElementById("options");
+
+options.innerHTML = "";
+
+q.options.forEach(option => {
+
+const button = document.createElement("button");
+
+button.className = "option";
+
+button.textContent = option[0];
+
+button.onclick = () => selectAnswer(option[1]);
+
+options.appendChild(button);
+
+});
+
+}
+
+
+/* =========================================================
+   SELECT ANSWER
+========================================================= */
+
+function selectAnswer(trait) {
+
+userAnswers.push({
+question: questions[currentQuestion].q,
+selectedTrait: trait
+});
+
+scores[trait]++;
+
+currentQuestion++;
+
+if (currentQuestion < questions.length) {
+
+showQuestion();
+
+} else {
+
+showResults();
+
+}
+
+}
+
+
+/* =========================================================
+   SORT TRAITS
+========================================================= */
+
+function getSortedTraits() {
+
+return Object.entries(scores)
+.sort((a,b) => b[1] - a[1]);
+
+}
+
+
+/* =========================================================
+   SHOW RESULTS
+========================================================= */
+
+async function showResults() {
+
+document.getElementById("assessment").classList.add("hidden");
+
+document.getElementById("results").classList.remove("hidden");
+
+const sorted = getSortedTraits();
+
+const topTrait = sorted[0][0];
+
+const secondTrait = sorted[1][0];
+
+const info = traitInfo[topTrait];
+
+
+/* PROFILE */
+
+document.getElementById("profileTitle").textContent =
+info.title;
+
+document.getElementById("profileDescription").textContent =
+info.description;
+
+
+/* FREE INSIGHTS */
+
+document.getElementById("insightStrength").textContent =
+info.strengths[0] + ", " +
+info.strengths[1] + " and " +
+info.strengths[2] +
+" appear to be natural advantages for you.";
+
+document.getElementById("insightWork").textContent =
+"You may enjoy work that allows you to use " +
+topTrait.toLowerCase() +
+" thinking while still having a clear goal.";
+
+document.getElementById("insightGrowth").textContent =
+info.blindSpots[0] +
+" could be something worth becoming more aware of as you develop.";
+
+
+/* TRAIT SCORES */
+
+const traitScores =
+document.getElementById("traitScores");
+
+traitScores.innerHTML = "";
+
+sorted.forEach(item => {
+
+const trait = item[0];
+
+const score = item[1];
+
+const percentage =
+Math.round((score / questions.length) * 100);
+
+traitScores.innerHTML += `
+
+<div class="score-row">
+
+<div class="score-header">
+<span>${trait}</span>
+<span>${percentage}%</span>
+</div>
+
+<div class="score-bar">
+
+<div
+class="score-fill"
+style="width:${percentage}%">
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+/* CAREER PREVIEW */
+
+const careerPreview =
+document.getElementById("careerPreview");
+
+careerPreview.innerHTML = "";
+
+info.careers.slice(0,3).forEach((career,index) => {
+
+const fits = [92,87,82];
+
+careerPreview.innerHTML += `
+
+<div class="career-card">
+
+<div class="career-title">
+${career}
+</div>
+
+<div class="fit">
+${fits[index]}% profile fit
+</div>
+
+</div>
+
+`;
+
+});
+
+
+/* LOCAL BLUEPRINT */
+
+generateBlueprint(topTrait, secondTrait);
+
+
+/* =========================================================
+   SEND ASSESSMENT TO BACKEND
+========================================================= */
+
+try {
+
+const response = await fetch("/api/generate-report", {
+
+method: "POST",
+
+headers: {
+"Content-Type": "application/json"
+},
+
+body: JSON.stringify({
+
+answers: userAnswers,
+
+scores: scores
+
+})
+
+});
+
+
+const data = await response.json();
+
+
+if (data.success) {
+
+console.log("✅ Personalized backend report:", data.report);
+
+/*
+   Save the backend report so we can use it
+   for the full blueprint later.
+*/
+
+window.backendReport = data.report;
+
+} else {
+
+console.error(
+"Backend report error:",
+data.error
+);
+
+}
+
+} catch (error) {
+
+console.error(
+"Could not connect to report engine:",
+error
+);
+
+}
+
+}
+
+
+/* =========================================================
+   GENERATE BLUEPRINT
+========================================================= */
+
+function generateBlueprint(topTrait, secondTrait) {
+
+const info = traitInfo[topTrait];
+
+document.getElementById("blueprintTitle").textContent =
+info.title + " Blueprint";
+
+document.getElementById("blueprintIntro").textContent =
+"Your profile suggests that " +
+topTrait.toLowerCase() +
+" is y  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+p {
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.question-number {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.progress-container {
+  width: 100%;
+  height: 9px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 20px 0 30px;
+}
+
+.progress {
+  height: 100%;
+  width: 8%;
+  background: #111827;
+  transition: width 0.3s;
+}
+
+.option {
+  width: 100%;
+  padding: 16px;
+  margin: 10px 0;
+  border: 1px solid #dbe1ea;
+  background: white;
+  border-radius: 14px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.option:hover {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+}
+
+.badge {
+  display: inline-block;
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+.trait-box {
+  background: #f8fafc;
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.score-row {
+  margin: 18px 0;
+}
+
+.score-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  font-weight: bold;
+}
+
+.score-bar {
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  background: #111827;
+}
+
+.career-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 17px;
+  padding: 18px;
+  margin: 12px 0;
+}
+
+.career-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.fit {
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+.locked {
+  position: relative;
+  overflow: hidden;
+}
+
+.blur {
+  filter: blur(7px);
+  user-select: none;
+}
+
+.unlock-box {
+  text-align: center;
+  padding: 28px 15px;
+  border: 2px dashed #c7d2fe;
+  background: #eef2ff;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.price {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.unlock-button {
+  border: none;
+  background: #111827;
+  color: white;
+  padding: 16px 25px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.small {
+  font-size: 13px;
+  color: #6b7280;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
 <!-- ASSESSMENT -->
 
 <div id="assessment" class="card">
