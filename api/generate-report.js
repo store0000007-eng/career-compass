@@ -8,21 +8,18 @@ export default async function handler(req, res) {
   try {
     const { answers, scores } = req.body;
 
-    // Validate answers
     if (!Array.isArray(answers) || answers.length === 0) {
       return res.status(400).json({
         error: "Answers are required"
       });
     }
 
-    // Validate scores
     if (!scores || typeof scores !== "object") {
       return res.status(400).json({
         error: "Scores are required"
       });
     }
 
-    // Sort traits from strongest to weakest
     const sortedTraits = Object.entries(scores)
       .sort((a, b) => b[1] - a[1]);
 
@@ -31,10 +28,480 @@ export default async function handler(req, res) {
 
     if (!topTrait || !secondTrait) {
       return res.status(400).json({
-        error: "Not enough trait data"
+        error: "Not enough assessment data"
       });
     }
 
+    const totalQuestions = answers.length;
+
+    const percentage = (trait) =>
+      Math.round(((scores[trait] || 0) / totalQuestions) * 100);
+
+    const traitData = {
+      Analytical: {
+        title: "The Analytical Thinker",
+
+        description:
+          "You naturally enjoy understanding problems, spotting patterns and figuring out how things work.",
+
+        strengths: [
+          "Logical problem solving",
+          "Deep analysis",
+          "Pattern recognition",
+          "Learning complex concepts"
+        ],
+
+        blindSpots: [
+          "Overthinking decisions",
+          "Spending too long perfecting solutions",
+          "Focusing heavily on logic while overlooking people factors"
+        ],
+
+        skills: [
+          "Programming",
+          "Data analysis",
+          "Decision making",
+          "Communication",
+          "Project execution"
+        ],
+
+        careers: [
+          "Software Developer",
+          "Data Analyst",
+          "Engineer",
+          "Cybersecurity Specialist"
+        ],
+
+        projects: [
+          "Build a small website or app",
+          "Analyze a real-world dataset",
+          "Create a simple automation project"
+        ],
+
+        roadmap: [
+          "Explore two analytical careers and compare what attracts you to each.",
+          "Complete one beginner technical project.",
+          "Speak with or interview someone working in a related field.",
+          "Choose one direction and create a longer-term learning plan."
+        ]
+      },
+
+      Leadership: {
+        title: "The Natural Leader",
+
+        description:
+          "You tend to take responsibility, make decisions and help move people toward a goal.",
+
+        strengths: [
+          "Decision making",
+          "Taking initiative",
+          "Motivating others",
+          "Handling responsibility"
+        ],
+
+        blindSpots: [
+          "Trying to control too much",
+          "Moving too quickly",
+          "Not always listening enough"
+        ],
+
+        skills: [
+          "Communication",
+          "Negotiation",
+          "Project management",
+          "Public speaking",
+          "Strategic thinking"
+        ],
+
+        careers: [
+          "Project Manager",
+          "Business Manager",
+          "Entrepreneur",
+          "Marketing Manager"
+        ],
+
+        projects: [
+          "Lead a small team project",
+          "Organize an event or activity",
+          "Run a small business experiment"
+        ],
+
+        roadmap: [
+          "Identify three careers where leadership is important.",
+          "Take responsibility for a small project.",
+          "Practice delegation and communication.",
+          "Reflect on your leadership style and choose an area to improve."
+        ]
+      },
+
+      Creative: {
+        title: "The Creative Builder",
+
+        description:
+          "You naturally enjoy ideas, originality and creating things that did not exist before.",
+
+        strengths: [
+          "Idea generation",
+          "Original thinking",
+          "Visual thinking",
+          "Experimentation"
+        ],
+
+        blindSpots: [
+          "Starting too many ideas",
+          "Losing interest in repetitive work",
+          "Difficulty finishing projects"
+        ],
+
+        skills: [
+          "Design",
+          "Storytelling",
+          "Video editing",
+          "User experience",
+          "Presentation"
+        ],
+
+        careers: [
+          "UI/UX Designer",
+          "Product Designer",
+          "Content Strategist",
+          "Creative Director"
+        ],
+
+        projects: [
+          "Design a mobile app concept",
+          "Create a brand identity",
+          "Build a small creative portfolio"
+        ],
+
+        roadmap: [
+          "Explore three creative career paths.",
+          "Complete one small design or creative project.",
+          "Build a simple portfolio of your work.",
+          "Ask for feedback and improve your strongest project."
+        ]
+      },
+
+      People: {
+        title: "The People Connector",
+
+        description:
+          "You naturally value communication, relationships and helping people.",
+
+        strengths: [
+          "Communication",
+          "Empathy",
+          "Relationship building",
+          "Understanding perspectives"
+        ],
+
+        blindSpots: [
+          "Taking criticism personally",
+          "Saying yes too often",
+          "Avoiding difficult conversations"
+        ],
+
+        skills: [
+          "Public speaking",
+          "Negotiation",
+          "Active listening",
+          "Networking",
+          "Leadership"
+        ],
+
+        careers: [
+          "Teacher",
+          "Psychologist",
+          "Human Resources Specialist",
+          "Sales Professional"
+        ],
+
+        projects: [
+          "Interview people about their careers",
+          "Volunteer for a community project",
+          "Practice public speaking"
+        ],
+
+        roadmap: [
+          "Explore several people-focused careers.",
+          "Practice communication through presentations or conversations.",
+          "Interview someone working in a career that interests you.",
+          "Identify which type of people-focused work feels most natural to you."
+        ]
+      },
+
+      Entrepreneurial: {
+        title: "The Opportunity Seeker",
+
+        description:
+          "You tend to notice opportunities, think independently and enjoy building things.",
+
+        strengths: [
+          "Opportunity spotting",
+          "Initiative",
+          "Independent thinking",
+          "Problem identification"
+        ],
+
+        blindSpots: [
+          "Chasing too many opportunities",
+          "Underestimating execution",
+          "Taking unnecessary risks"
+        ],
+
+        skills: [
+          "Sales",
+          "Marketing",
+          "Finance basics",
+          "Product development",
+          "Negotiation"
+        ],
+
+        careers: [
+          "Entrepreneur",
+          "Product Manager",
+          "Business Development",
+          "Marketing Strategist"
+        ],
+
+        projects: [
+          "Identify a real-world problem",
+          "Create a simple solution",
+          "Build and test a small landing page"
+        ],
+
+        roadmap: [
+          "Identify three real problems people experience.",
+          "Choose one problem and design a simple solution.",
+          "Show your idea to potential users and collect feedback.",
+          "Improve the idea based on what you learned."
+        ]
+      },
+
+      Structured: {
+        title: "The Organized Strategist",
+
+        description:
+          "You tend to value organization, reliability, planning and clear systems.",
+
+        strengths: [
+          "Organization",
+          "Consistency",
+          "Planning",
+          "Attention to detail"
+        ],
+
+        blindSpots: [
+          "Over-planning",
+          "Discomfort with uncertainty",
+          "Difficulty adapting to sudden changes"
+        ],
+
+        skills: [
+          "Project management",
+          "Financial literacy",
+          "Excel",
+          "Time management",
+          "Process improvement"
+        ],
+
+        careers: [
+          "Financial Analyst",
+          "Operations Manager",
+          "Project Coordinator",
+          "Accountant"
+        ],
+
+        projects: [
+          "Build a personal productivity system",
+          "Create a budget tracker",
+          "Organize a small project"
+        ],
+
+        roadmap: [
+          "Explore careers that reward organization and planning.",
+          "Build a personal organization system.",
+          "Use it to complete a small project.",
+          "Review what worked and improve your system."
+        ]
+      }
+    };
+
+    const primary = traitData[topTrait];
+    const secondary = traitData[secondTrait];
+
+    if (!primary || !secondary) {
+      return res.status(400).json({
+        error: "Invalid assessment traits"
+      });
+    }
+
+    // Career combinations
+    const combinations = {
+      "Analytical+Creative": [
+        "Product Designer",
+        "UX Engineer",
+        "Creative Technologist"
+      ],
+
+      "Analytical+Leadership": [
+        "Technology Project Manager",
+        "Engineering Manager",
+        "Product Manager"
+      ],
+
+      "Analytical+Entrepreneurial": [
+        "Tech Entrepreneur",
+        "Startup Product Manager",
+        "Business Intelligence Specialist"
+      ],
+
+      "Analytical+Structured": [
+        "Data Analyst",
+        "Systems Analyst",
+        "Financial Analyst"
+      ],
+
+      "Analytical+People": [
+        "Technical Consultant",
+        "Product Manager",
+        "Technology Trainer"
+      ],
+
+      "Leadership+Creative": [
+        "Creative Director",
+        "Brand Manager",
+        "Marketing Manager"
+      ],
+
+      "Leadership+Entrepreneurial": [
+        "Entrepreneur",
+        "Startup Founder",
+        "Business Development Manager"
+      ],
+
+      "Leadership+Structured": [
+        "Project Manager",
+        "Operations Manager",
+        "Program Manager"
+      ],
+
+      "Leadership+People": [
+        "HR Manager",
+        "Team Manager",
+        "Sales Manager"
+      ],
+
+      "Creative+Entrepreneurial": [
+        "Creative Entrepreneur",
+        "Brand Strategist",
+        "Product Creator"
+      ],
+
+      "Creative+Structured": [
+        "UX Designer",
+        "Product Designer",
+        "Design Operations Specialist"
+      ],
+
+      "Creative+People": [
+        "Content Strategist",
+        "UX Researcher",
+        "Communication Specialist"
+      ],
+
+      "Entrepreneurial+Structured": [
+        "Business Operations Manager",
+        "Product Manager",
+        "Business Analyst"
+      ],
+
+      "Entrepreneurial+People": [
+        "Sales Strategist",
+        "Business Development Manager",
+        "Marketing Manager"
+      ],
+
+      "Structured+People": [
+        "HR Operations Specialist",
+        "Project Coordinator",
+        "Customer Success Manager"
+      ]
+    };
+
+    const key1 = `${topTrait}+${secondTrait}`;
+    const key2 = `${secondTrait}+${topTrait}`;
+
+    const careerMatches =
+      combinations[key1] ||
+      combinations[key2] ||
+      primary.careers.slice(0, 3);
+
+    // Create a personalized explanation
+    const combinationInsight =
+      `Your strongest area is ${topTrait} at ${percentage(topTrait)}%, ` +
+      `followed by ${secondTrait} at ${percentage(secondTrait)}%. ` +
+      `This means your profile is not defined by just one strength. ` +
+      `The combination of these two traits can help you explore careers ` +
+      `where both abilities are useful.`;
+
+    // Full report
+    const report = {
+      profile: {
+        title: primary.title,
+        description: primary.description,
+        strongestTrait: topTrait,
+        secondTrait: secondTrait,
+
+        scores: {
+          [topTrait]: percentage(topTrait),
+          [secondTrait]: percentage(secondTrait)
+        }
+      },
+
+      careerMatches,
+
+      strengths: [
+        ...primary.strengths.slice(0, 3),
+        secondary.strengths[0]
+      ],
+
+      blindSpots: [
+        primary.blindSpots[0],
+        primary.blindSpots[1],
+        secondary.blindSpots[0]
+      ],
+
+      skills: [
+        ...primary.skills.slice(0, 3),
+        secondary.skills[0]
+      ],
+
+      projects: [
+        ...primary.projects,
+        secondary.projects[0]
+      ],
+
+      plan: primary.roadmap,
+
+      personalizedInsight: combinationInsight,
+
+      answerCount: answers.length
+    };
+
+    return res.status(200).json({
+      success: true,
+      report
+    });
+
+  } catch (error) {
+    console.error("Career Compass error:", error);
+
+    return res.status(500).json({
+      error: "Something went wrong while generating the report."
+    });
+  }
+}
     const totalQuestions = answers.length;
 
     const percentage = (trait) => {
